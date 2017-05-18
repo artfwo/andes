@@ -35,28 +35,24 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
     addAndMakeVisible (&noiseGroup);
 
     xSlider.setSliderStyle (Slider::Rotary);
-    xSlider.setRange(0, 1, 0);
     xSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    xSlider.addListener (this);
     noiseGroup.addAndMakeVisible (&xSlider);
+    xAttachment = new SliderAttachment (processor.parameters, "x", xSlider);
 
     ySlider.setSliderStyle (Slider::Rotary);
-    ySlider.setRange(0, 1, 0);
     ySlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    ySlider.addListener (this);
     noiseGroup.addAndMakeVisible (&ySlider);
+    yAttachment = new SliderAttachment (processor.parameters, "y", ySlider);
 
     octavesSlider.setSliderStyle (Slider::Rotary);
     octavesSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    octavesSlider.setRange(1, 16, 1);
-    octavesSlider.addListener (this);
     noiseGroup.addAndMakeVisible (&octavesSlider);
+    octavesAttachment = new SliderAttachment (processor.parameters, "octaves", octavesSlider);
 
     persistenceSlider.setSliderStyle (Slider::Rotary);
     persistenceSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    persistenceSlider.setRange(0, 1, 0);
-    persistenceSlider.addListener (this);
     noiseGroup.addAndMakeVisible (&persistenceSlider);
+    persistenceAttachment = new SliderAttachment (processor.parameters, "persistence", persistenceSlider);
 
     seedEditor.setReadOnly(true); // TODO: actually should be editable
     seedEditor.setText (String::toHexString((int) processor.noise.getSeed()));
@@ -71,7 +67,7 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
     keyboardComponent.setWantsKeyboardFocus(true);
     addAndMakeVisible (&keyboardComponent);
 
-    startTimerHz(30);
+    startTimerHz (30);
     srand (time(NULL));
 }
 
@@ -117,30 +113,6 @@ void AndesAudioProcessorEditor::buttonClicked (Button* button)
     }
 }
 
-void AndesAudioProcessorEditor::sliderValueChanged (Slider* slider)
-{
-    if (slider == &octavesSlider)
-    {
-        *processor.octaves = (int) slider->getValue();
-        waveformVisualiser.update();
-    }
-    if (slider == &persistenceSlider)
-    {
-        *processor.persistence = (float) slider->getValue();
-        waveformVisualiser.update();
-    }
-    if (slider == &xSlider)
-    {
-        *processor.oscX = (float) slider->getValue();
-        waveformVisualiser.update();
-    }
-    if (slider == &ySlider)
-    {
-        *processor.oscY = (float) slider->getValue();
-        waveformVisualiser.update();
-    }
-}
-
 void AndesAudioProcessorEditor::handleNoteOn (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
 {
 
@@ -153,33 +125,5 @@ void AndesAudioProcessorEditor::handleNoteOff (MidiKeyboardState* source, int mi
 
 void AndesAudioProcessorEditor::timerCallback ()
 {
-    const OwnedArray<AudioProcessorParameter>& params = getAudioProcessor()->getParameters();
-    for (int i = 0; i < params.size(); ++i)
-    {
-        if (const AudioParameterFloat* param = dynamic_cast<AudioParameterFloat*> (params[i]))
-        {
-            if (param->paramID == "persistence") {
-                persistenceSlider.setValue ((double) *param, dontSendNotification);
-                waveformVisualiser.update();
-            }
-
-            if (param->paramID == "x") {
-                xSlider.setValue ((double) *param, dontSendNotification);
-                waveformVisualiser.update();
-            }
-
-            if (param->paramID == "y") {
-                ySlider.setValue ((double) *param, dontSendNotification);
-                waveformVisualiser.update();
-            }
-        }
-
-        if (const AudioParameterInt* param = dynamic_cast<AudioParameterInt*> (params[i]))
-        {
-            if (param->paramID == "octaves") {
-                octavesSlider.setValue ((int) *param, dontSendNotification);
-                waveformVisualiser.update();
-            }
-        }
-    }
+    waveformVisualiser.update();
 }

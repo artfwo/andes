@@ -79,9 +79,11 @@ void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
             while (--numSamples >= 0)
             {
                 float phase = fmod (currentPhase, 2);
-                const float currentSample = processor.noise.gen (*processor.oscX, *processor.oscY, phase,
-                    *processor.octaves,
-                    *processor.persistence) * level * tailOff;
+                const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
+                                                                 *processor.parameters.getRawParameterValue ("y"),
+                                                                 phase,
+                                                                 (int) *processor.parameters.getRawParameterValue ("octaves"),
+                                                                 *processor.parameters.getRawParameterValue ("persistence")) * level * tailOff;
 
                 for (int i = outputBuffer.getNumChannels(); --i >= 0;)
                     outputBuffer.addSample (i, startSample, currentSample);
@@ -106,9 +108,11 @@ void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
             while (--numSamples >= 0)
             {
                 float phase = fmod (currentPhase, 2);
-                const float currentSample = processor.noise.gen (*processor.oscX, *processor.oscY, phase,
-                    *processor.octaves,
-                    *processor.persistence) * level;
+                const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
+                                                                 *processor.parameters.getRawParameterValue ("y"),
+                                                                 phase,
+                                                                 (int) *processor.parameters.getRawParameterValue ("octaves"),
+                                                                 *processor.parameters.getRawParameterValue ("persistence")) * level;
 
                 for (int i = outputBuffer.getNumChannels(); --i >= 0;)
                     outputBuffer.addSample (i, startSample, currentSample);

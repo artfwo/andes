@@ -55,9 +55,13 @@ void WaveformVisualiser::paint (Graphics& g)
     {
         float z = ((float) i) / ((float) w) * 2.0f;
 
-        p.lineTo (i, h / 2 - (processor.noise.gen(*processor.oscX, *processor.oscY, z,
-            *processor.octaves,
-            *processor.persistence) * h / 2));
+        p.lineTo (i, h / 2 - (processor.noise.gen(
+            *processor.parameters.getRawParameterValue ("x"),
+            *processor.parameters.getRawParameterValue ("y"),
+            z,
+            (int) *processor.parameters.getRawParameterValue ("octaves"),
+            *processor.parameters.getRawParameterValue ("persistence")
+        ) * h / 2));
     }
 
     g.setColour (Colours::white);

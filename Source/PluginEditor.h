@@ -25,11 +25,12 @@
 
 class AndesAudioProcessorEditor : public AudioProcessorEditor,
                                   private Button::Listener,
-                                  private Slider::Listener,
                                   private MidiKeyboardStateListener,
                                   private Timer
 {
 public:
+    typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
+
     AndesAudioProcessorEditor (AndesAudioProcessor&);
     ~AndesAudioProcessorEditor();
 
@@ -56,8 +57,12 @@ private:
     Slider octavesSlider;
     Slider persistenceSlider;
 
+    ScopedPointer<SliderAttachment> xAttachment;
+    ScopedPointer<SliderAttachment> yAttachment;
+    ScopedPointer<SliderAttachment> octavesAttachment;
+    ScopedPointer<SliderAttachment> persistenceAttachment;
+
     void buttonClicked (Button* button) override;
-    void sliderValueChanged (Slider* slider) override;
     void handleNoteOn (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
     void handleNoteOff (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
     void timerCallback() override;

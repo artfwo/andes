@@ -23,16 +23,7 @@
 
 //==============================================================================
 AndesAudioProcessor::AndesAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       )
-#endif
+     : AudioProcessor (BusesProperties().withOutput ("Output", AudioChannelSet::stereo(), true)), parameters (*this, nullptr)
 {
     synth.clearVoices();
     synth.clearSounds();
@@ -43,30 +34,39 @@ AndesAudioProcessor::AndesAudioProcessor()
 
     synth.addSound (new AndesSound());
 
-    addParameter (oscX = new AudioParameterFloat ("x", // parameter ID
-                                                  "x", // parameter name
-                                                  0.0f,   // mininum value
-                                                  1.0f,   // maximum value
-                                                  0.0f)); // default value
+    parameters.createAndAddParameter ("x",          // parameter ID
+                                      "x",          // parameter name
+                                      String(),     // parameter label (suffix)
+                                      NormalisableRange<float> (0.0f, 1.0f),        // range
+                                      0.0f,         // default value
+                                      nullptr,
+                                      nullptr);
 
-    addParameter (oscY = new AudioParameterFloat ("y", // parameter ID
-                                                  "y", // parameter name
-                                                  0.0f,   // mininum value
-                                                  1.0f,   // maximum value
-                                                  0.0f)); // default value
+    parameters.createAndAddParameter ("y",          // parameter ID
+                                      "y",          // parameter name
+                                      String(),     // parameter label (suffix)
+                                      NormalisableRange<float> (0.0f, 1.0f),        // range
+                                      0.0f,         // default value
+                                      nullptr,
+                                      nullptr);
 
-    addParameter (octaves = new AudioParameterInt ("octaves", // parameter ID
-                                                  "octaves", // parameter name
-                                                  1,   // mininum value
-                                                  16,   // maximum value
-                                                  1)); // default value
+    parameters.createAndAddParameter ("octaves",    // parameter ID
+                                      "octaves",    // parameter name
+                                      String(),     // parameter label (suffix)
+                                      NormalisableRange<float> (1.0f, 16.0f, 1.0f), // range
+                                      1,            // default value
+                                      nullptr,
+                                      nullptr);
 
-    addParameter (persistence = new AudioParameterFloat ("persistence", // parameter ID
-                                                  "persistence", // parameter name
-                                                  0.0f,   // mininum value
-                                                  1.0f,   // maximum value
-                                                  0.5f)); // default value
+    parameters.createAndAddParameter ("persistence",    // parameter ID
+                                      "persistence",    // parameter name
+                                      String(),         // parameter label (suffix)
+                                      NormalisableRange<float> (0.0f, 1.0f),        // range
+                                      0.5f,             // default value
+                                      nullptr,
+                                      nullptr);
 
+    parameters.state = ValueTree (Identifier ("Andes-1"));
 }
 
 AndesAudioProcessor::~AndesAudioProcessor()
@@ -203,15 +203,21 @@ AudioProcessorEditor* AndesAudioProcessor::createEditor()
 //==============================================================================
 void AndesAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    ScopedPointer<XmlElement> xml (parameters.state.createXml());
+    copyXmlToBinary (*xml, destData);
 }
 
 void AndesAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    ScopedPointer<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+    
+    if (xmlState != nullptr)
+    {
+        if (xmlState->hasTagName (parameters.state.getType()))
+        {
+            parameters.state = ValueTree::fromXml (*xmlState);
+        }
+    }
 }
 
 //==============================================================================

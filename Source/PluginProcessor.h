@@ -70,6 +70,7 @@ public:
     AudioParameterFloat* oscY;
     AudioParameterFloat* persistence;
     AudioParameterInt* octaves;
+    AudioProcessorValueTreeState parameters;
 
 private:
     //==============================================================================
