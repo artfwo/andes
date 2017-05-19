@@ -71,6 +71,7 @@ public:
     AudioParameterFloat* persistence;
     AudioParameterInt* octaves;
     AudioProcessorValueTreeState parameters;
+    ValueTree internalParameters;
 
 private:
     //==============================================================================

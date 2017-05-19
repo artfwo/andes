@@ -66,7 +66,9 @@ AndesAudioProcessor::AndesAudioProcessor()
                                       nullptr,
                                       nullptr);
 
-    parameters.state = ValueTree (Identifier ("Andes-1"));
+    parameters.state = ValueTree (Identifier ("AndesProgram"));
+    parameters.state.setProperty ("version", 0, nullptr);
+    internalParameters = parameters.state.getOrCreateChildWithName ("Internal", nullptr);
 }
 
 AndesAudioProcessor::~AndesAudioProcessor()
@@ -203,6 +205,7 @@ AudioProcessorEditor* AndesAudioProcessor::createEditor()
 //==============================================================================
 void AndesAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
+    internalParameters.setProperty ("seed", (int64) noise.getSeed(), nullptr);
     ScopedPointer<XmlElement> xml (parameters.state.createXml());
     copyXmlToBinary (*xml, destData);
 }
@@ -216,6 +219,8 @@ void AndesAudioProcessor::setStateInformation (const void* data, int sizeInBytes
         if (xmlState->hasTagName (parameters.state.getType()))
         {
             parameters.state = ValueTree::fromXml (*xmlState);
+            internalParameters = parameters.state.getOrCreateChildWithName ("Internal", nullptr);
+            noise.setSeed ((uint32_t) (int64) internalParameters.getProperty ("seed"));
         }
     }
 }

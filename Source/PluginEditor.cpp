@@ -126,4 +126,5 @@ void AndesAudioProcessorEditor::handleNoteOff (MidiKeyboardState* source, int mi
 void AndesAudioProcessorEditor::timerCallback ()
 {
     waveformVisualiser.update();
+    seedEditor.setText (String::toHexString((int) processor.noise.getSeed()));
 }
