@@ -65,11 +65,6 @@ public:
 
     Noise noise;
     
-    AudioParameterFloat* gain;
-    AudioParameterFloat* oscX;
-    AudioParameterFloat* oscY;
-    AudioParameterFloat* persistence;
-    AudioParameterInt* octaves;
     AudioProcessorValueTreeState parameters;
     ValueTree internalParameters;
 

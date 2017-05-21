@@ -20,8 +20,9 @@
 #include "AndesSound.h"
 
 AndesVoice::AndesVoice (AndesAudioProcessor& processor)
-    : currentPhase (0), phaseDelta (0), level (0), tailOff (0),
-      processor(processor)
+    : currentPhase (0), phaseDelta (0), level (0),
+      processor(processor),
+      envGen(processor)
 {
 }
 
@@ -34,24 +35,19 @@ void AndesVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound
 {
     currentPhase = 0.0;
     level = velocity;
-    tailOff = 0.0;
 
     double cyclesPerSecond = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
     double cyclesPerSample = cyclesPerSecond / getSampleRate();
 
     phaseDelta = cyclesPerSample * 2.0;
+    envGen.reset(getSampleRate());
 }
 
 void AndesVoice::stopNote (float velocity, bool allowTailOff)
 {
     if (allowTailOff)
     {
-        // start a tail-off by setting this flag. The render callback will pick up on
-        // this and do a fade out, calling clearCurrentNote() when it's finished.
-
-        if (tailOff == 0.0) // we only need to begin a tail-off if it's not already doing so - the
-                            // stopNote method could be called more than once.
-            tailOff = 1.0;
+        envGen.release();
     }
     else
     {
@@ -74,51 +70,29 @@ void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
 {
     if (phaseDelta != 0.0)
     {
-        if (tailOff > 0)
+        while (--numSamples >= 0)
         {
-            while (--numSamples >= 0)
+            float phase = fmod (currentPhase, 2);
+            const float envLevel = envGen.gen(currentPhase);
+            const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
+                                                             *processor.parameters.getRawParameterValue ("y"),
+                                                             phase,
+                                                             (int) *processor.parameters.getRawParameterValue ("octaves"),
+                                                             *processor.parameters.getRawParameterValue ("persistence")) * level * envLevel;
+
+            for (int i = outputBuffer.getNumChannels(); --i >= 0;)
+                outputBuffer.addSample (i, startSample, currentSample);
+
+            currentPhase += phaseDelta;
+            ++startSample;
+
+            if (envLevel <= 0.005)
             {
-                float phase = fmod (currentPhase, 2);
-                const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
-                                                                 *processor.parameters.getRawParameterValue ("y"),
-                                                                 phase,
-                                                                 (int) *processor.parameters.getRawParameterValue ("octaves"),
-                                                                 *processor.parameters.getRawParameterValue ("persistence")) * level * tailOff;
+                // tells the synth that this voice has stopped
+                clearCurrentNote();
 
-                for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-                    outputBuffer.addSample (i, startSample, currentSample);
-
-                currentPhase += phaseDelta;
-                ++startSample;
-
-                tailOff *= 0.99;
-
-                if (tailOff <= 0.005)
-                {
-                    // tells the synth that this voice has stopped
-                    clearCurrentNote();
-
-                    phaseDelta = 0.0;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            while (--numSamples >= 0)
-            {
-                float phase = fmod (currentPhase, 2);
-                const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
-                                                                 *processor.parameters.getRawParameterValue ("y"),
-                                                                 phase,
-                                                                 (int) *processor.parameters.getRawParameterValue ("octaves"),
-                                                                 *processor.parameters.getRawParameterValue ("persistence")) * level;
-
-                for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-                    outputBuffer.addSample (i, startSample, currentSample);
-
-                currentPhase += phaseDelta;
-                ++startSample;
+                phaseDelta = 0.0;
+                break;
             }
         }
     }

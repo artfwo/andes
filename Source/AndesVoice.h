@@ -20,6 +20,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "EnvelopeGenerator.h"
 
 class AndesVoice  : public SynthesiserVoice
 {
@@ -35,6 +36,7 @@ public:
 	void renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
 
 private:
-    double currentPhase, phaseDelta, level, tailOff;
+    double currentPhase, phaseDelta, level;
     AndesAudioProcessor& processor;
+    EnvelopeGenerator envGen;
 };

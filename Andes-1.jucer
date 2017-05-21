@@ -13,6 +13,10 @@
               companyName="artfwo" companyWebsite="htts://artfwo.net" companyEmail="art@artfwo.net">
   <MAINGROUP id="aZvOox" name="Andes-1">
     <GROUP id="{7AF81C8A-37A1-221C-D6EB-D5BCF7D46A91}" name="Source">
+      <FILE id="aKNUin" name="EnvelopeGenerator.cpp" compile="1" resource="0"
+            file="Source/EnvelopeGenerator.cpp"/>
+      <FILE id="a66NCw" name="EnvelopeGenerator.h" compile="0" resource="0"
+            file="Source/EnvelopeGenerator.h"/>
       <FILE id="qyigFC" name="Noise.cpp" compile="1" resource="0" file="Source/Noise.cpp"/>
       <FILE id="pglHN9" name="Noise.h" compile="0" resource="0" file="Source/Noise.h"/>
       <FILE id="k4noTO" name="AndesVoice.cpp" compile="1" resource="0" file="Source/AndesVoice.cpp"/>
