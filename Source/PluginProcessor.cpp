@@ -25,15 +25,6 @@
 AndesAudioProcessor::AndesAudioProcessor()
      : AudioProcessor (BusesProperties().withOutput ("Output", AudioChannelSet::stereo(), true)), parameters (*this, nullptr)
 {
-    synth.clearVoices();
-    synth.clearSounds();
-
-    for (int i = 8; --i >= 0; ) {
-        synth.addVoice (new AndesVoice (*this));
-    }
-
-    synth.addSound (new AndesSound());
-
     parameters.createAndAddParameter ("x",          // parameter ID
                                       "x",          // parameter name
                                       String(),     // parameter label (suffix)
@@ -66,9 +57,51 @@ AndesAudioProcessor::AndesAudioProcessor()
                                       nullptr,
                                       nullptr);
 
+    parameters.createAndAddParameter ("env1att",    // parameter ID
+                                      "env1att",    // parameter name
+                                      String(),         // parameter label (suffix)
+                                      NormalisableRange<float> (0.001f, 9.0f),      // range
+                                      0.505f,       // default value
+                                      nullptr,
+                                      nullptr);
+
+    parameters.createAndAddParameter ("env1dec",    // parameter ID
+                                      "env1dec",    // parameter name
+                                      String(),         // parameter label (suffix)
+                                      NormalisableRange<float> (0.200f, 9.0f),      // range
+                                      0.5f,             // default value
+                                      nullptr,
+                                      nullptr);
+
+    parameters.createAndAddParameter ("env1sus",    // parameter ID
+                                      "env1sus",    // parameter name
+                                      String(),         // parameter label (suffix)
+                                      NormalisableRange<float> (0.0f, 1.0f),        // range
+                                      0.5f,             // default value
+                                      nullptr,
+                                      nullptr);
+
+    parameters.createAndAddParameter ("env1rel",    // parameter ID
+                                      "env1rel",    // parameter name
+                                      String(),         // parameter label (suffix)
+                                      NormalisableRange<float> (0.050f, 9.0f),      // range
+                                      0.5f,             // default value
+                                      nullptr,
+                                      nullptr);
+
+
     parameters.state = ValueTree (Identifier ("AndesProgram"));
     parameters.state.setProperty ("version", 0, nullptr);
     internalParameters = parameters.state.getOrCreateChildWithName ("Internal", nullptr);
+
+    synth.clearVoices();
+    synth.clearSounds();
+
+    for (int i = 8; --i >= 0; ) {
+        synth.addVoice (new AndesVoice (*this));
+    }
+
+    synth.addSound (new AndesSound());
 }
 
 AndesAudioProcessor::~AndesAudioProcessor()
