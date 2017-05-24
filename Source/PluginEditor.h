@@ -21,7 +21,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "WaveformVisualiser.h"
-
+#include "EnvelopeEditor.h"
 
 class AndesAudioProcessorEditor : public AudioProcessorEditor,
                                   private Button::Listener,
@@ -50,6 +50,7 @@ private:
     TextButton randomizeButton;
 
     WaveformVisualiser waveformVisualiser;
+    EnvelopeEditor env1Editor;
 
     GroupComponent noiseGroup;
     Slider xSlider;

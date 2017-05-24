@@ -24,7 +24,9 @@
 
 //==============================================================================
 AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p), waveformVisualiser(processor),
+    : AudioProcessorEditor (&p), processor (p),
+      waveformVisualiser(processor),
+      env1Editor(processor),
       keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard)
 {
     // Make sure that before the constructor has finished, you've set the
@@ -63,6 +65,7 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
     addAndMakeVisible (&seedEditor);
     addAndMakeVisible (&randomizeButton);
     addAndMakeVisible (&waveformVisualiser);
+    addAndMakeVisible (&env1Editor);
 
     keyboardComponent.setWantsKeyboardFocus(true);
     addAndMakeVisible (&keyboardComponent);
@@ -84,10 +87,11 @@ void AndesAudioProcessorEditor::paint (Graphics& g)
 
 void AndesAudioProcessorEditor::resized()
 {
-    seedEditor.setBounds (160, 190, 80, 26);
-    randomizeButton.setBounds (255, 190, 80, 26);
-    waveformVisualiser.setBounds (165, 10, 170, 170);
-    noiseGroup.setBounds (100, 230, 300, 100);
+    seedEditor.setBounds (320, 190, 80, 26);
+    randomizeButton.setBounds (410, 190, 80, 26);
+    waveformVisualiser.setBounds (320, 10, 170, 170);
+    noiseGroup.setBounds (10, 10, 300, 100);
+    env1Editor.setBounds (10, 120, 300, 100);
 
     int sliderY = 10;
     int sliderHeight = noiseGroup.getHeight() - 30;    
