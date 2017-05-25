@@ -27,34 +27,10 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p),
       waveformVisualiser(processor),
       env1Editor(processor),
+      noiseEditor(processor),
       keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (500, 414);
-
-    noiseGroup.setText ("Noise");
-    addAndMakeVisible (&noiseGroup);
-
-    xSlider.setSliderStyle (Slider::Rotary);
-    xSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    noiseGroup.addAndMakeVisible (&xSlider);
-    xAttachment = new SliderAttachment (processor.parameters, "x", xSlider);
-
-    ySlider.setSliderStyle (Slider::Rotary);
-    ySlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    noiseGroup.addAndMakeVisible (&ySlider);
-    yAttachment = new SliderAttachment (processor.parameters, "y", ySlider);
-
-    octavesSlider.setSliderStyle (Slider::Rotary);
-    octavesSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    noiseGroup.addAndMakeVisible (&octavesSlider);
-    octavesAttachment = new SliderAttachment (processor.parameters, "octaves", octavesSlider);
-
-    persistenceSlider.setSliderStyle (Slider::Rotary);
-    persistenceSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    noiseGroup.addAndMakeVisible (&persistenceSlider);
-    persistenceAttachment = new SliderAttachment (processor.parameters, "persistence", persistenceSlider);
+    setSize (500, 314);
 
     seedEditor.setReadOnly(true); // TODO: actually should be editable
     seedEditor.setText (String::toHexString((int) processor.noise.getSeed()));
@@ -66,6 +42,7 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
     addAndMakeVisible (&randomizeButton);
     addAndMakeVisible (&waveformVisualiser);
     addAndMakeVisible (&env1Editor);
+    addAndMakeVisible (&noiseEditor);
 
     keyboardComponent.setWantsKeyboardFocus(true);
     addAndMakeVisible (&keyboardComponent);
@@ -90,18 +67,8 @@ void AndesAudioProcessorEditor::resized()
     seedEditor.setBounds (320, 190, 80, 26);
     randomizeButton.setBounds (410, 190, 80, 26);
     waveformVisualiser.setBounds (320, 10, 170, 170);
-    noiseGroup.setBounds (10, 10, 300, 100);
+    noiseEditor.setBounds (10, 10, 300, 100);
     env1Editor.setBounds (10, 120, 300, 100);
-
-    int sliderY = 10;
-    int sliderHeight = noiseGroup.getHeight() - 30;    
-    int sliderWidth = noiseGroup.getWidth() / 4;
-
-    xSlider.setBounds (sliderWidth * 0, sliderY, sliderWidth, sliderHeight);
-    ySlider.setBounds (sliderWidth * 1, sliderY, sliderWidth, sliderHeight);
-    octavesSlider.setBounds (sliderWidth * 2, sliderY, sliderWidth, sliderHeight);
-    persistenceSlider.setBounds (sliderWidth * 3, sliderY, sliderWidth, sliderHeight);
-
     keyboardComponent.setBounds (0, getHeight() - 64, getWidth(), 64);
 }
 

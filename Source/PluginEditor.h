@@ -22,6 +22,7 @@
 #include "PluginProcessor.h"
 #include "WaveformVisualiser.h"
 #include "EnvelopeEditor.h"
+#include "NoiseEditor.h"
 
 class AndesAudioProcessorEditor : public AudioProcessorEditor,
                                   private Button::Listener,
@@ -51,17 +52,7 @@ private:
 
     WaveformVisualiser waveformVisualiser;
     EnvelopeEditor env1Editor;
-
-    GroupComponent noiseGroup;
-    Slider xSlider;
-    Slider ySlider;
-    Slider octavesSlider;
-    Slider persistenceSlider;
-
-    ScopedPointer<SliderAttachment> xAttachment;
-    ScopedPointer<SliderAttachment> yAttachment;
-    ScopedPointer<SliderAttachment> octavesAttachment;
-    ScopedPointer<SliderAttachment> persistenceAttachment;
+    NoiseEditor noiseEditor;
 
     void buttonClicked (Button* button) override;
     void handleNoteOn (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
