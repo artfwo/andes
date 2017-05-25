@@ -25,67 +25,51 @@
 AndesAudioProcessor::AndesAudioProcessor()
      : AudioProcessor (BusesProperties().withOutput ("Output", AudioChannelSet::stereo(), true)), parameters (*this, nullptr)
 {
-    parameters.createAndAddParameter ("x",          // parameter ID
-                                      "x",          // parameter name
-                                      String(),     // parameter label (suffix)
-                                      NormalisableRange<float> (0.0f, 1.0f),        // range
-                                      0.0f,         // default value
+    parameters.createAndAddParameter ("x", "x", String(),
+                                      NormalisableRange<float> (0.0f, 1.0f),
+                                      0.0f,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("y",          // parameter ID
-                                      "y",          // parameter name
-                                      String(),     // parameter label (suffix)
-                                      NormalisableRange<float> (0.0f, 1.0f),        // range
-                                      0.0f,         // default value
+    parameters.createAndAddParameter ("y", "y", String(),
+                                      NormalisableRange<float> (0.0f, 1.0f),
+                                      0.0f,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("octaves",    // parameter ID
-                                      "octaves",    // parameter name
-                                      String(),     // parameter label (suffix)
-                                      NormalisableRange<float> (1.0f, 16.0f, 1.0f), // range
-                                      1,            // default value
+    parameters.createAndAddParameter ("octaves", "octaves", String(),
+                                      NormalisableRange<float> (1.0f, 16.0f, 1.0f),
+                                      1,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("persistence",    // parameter ID
-                                      "persistence",    // parameter name
-                                      String(),         // parameter label (suffix)
-                                      NormalisableRange<float> (0.0f, 1.0f),        // range
-                                      0.5f,             // default value
+    parameters.createAndAddParameter ("persistence", "persistence", String(),
+                                      NormalisableRange<float> (0.0f, 1.0f),
+                                      0.5f,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("env1att",    // parameter ID
-                                      "env1att",    // parameter name
-                                      String(),         // parameter label (suffix)
-                                      NormalisableRange<float> (0.001f, 9.0f),      // range
-                                      0.505f,       // default value
+    parameters.createAndAddParameter ("env1att", "env1att", String(),
+                                      NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
+                                      0.005f,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("env1dec",    // parameter ID
-                                      "env1dec",    // parameter name
-                                      String(),         // parameter label (suffix)
-                                      NormalisableRange<float> (0.200f, 9.0f),      // range
-                                      0.5f,             // default value
+    parameters.createAndAddParameter ("env1dec", "env1dec", String(),
+                                      NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
+                                      0.2f,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("env1sus",    // parameter ID
-                                      "env1sus",    // parameter name
-                                      String(),         // parameter label (suffix)
-                                      NormalisableRange<float> (0.0f, 1.0f),        // range
-                                      0.5f,             // default value
+    parameters.createAndAddParameter ("env1sus", "env1sus", String(),
+                                      NormalisableRange<float> (0.0f, 1.0f),
+                                      0.5f,
                                       nullptr,
                                       nullptr);
 
-    parameters.createAndAddParameter ("env1rel",    // parameter ID
-                                      "env1rel",    // parameter name
-                                      String(),         // parameter label (suffix)
-                                      NormalisableRange<float> (0.050f, 9.0f),      // range
-                                      0.5f,             // default value
+    parameters.createAndAddParameter ("env1rel", "env1rel", String(),
+                                      NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
+                                      0.050f,
                                       nullptr,
                                       nullptr);
 
