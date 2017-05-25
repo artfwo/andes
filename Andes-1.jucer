@@ -132,5 +132,5 @@
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_JACK="enabled"/>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_JACK="enabled" JUCE_WEB_BROWSER="disabled"/>
 </JUCERPROJECT>
