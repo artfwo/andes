@@ -27,6 +27,7 @@ public:
     ~EnvelopeGenerator();
 
     void reset (double sampleRate);
+    void release();
     float next();
 
     enum State {
@@ -49,4 +50,5 @@ private:
 
     double sampleRate;
     float level;
+    float releaseLevel;
 };

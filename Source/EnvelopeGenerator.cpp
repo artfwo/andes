@@ -37,6 +37,12 @@ void EnvelopeGenerator::reset (double sampleRate)
     state = State::Attack;
 }
 
+void EnvelopeGenerator::release()
+{
+    releaseLevel = level;
+    state = State::Release;
+}
+
 float EnvelopeGenerator::next()
 {
     switch (state)
@@ -65,7 +71,7 @@ float EnvelopeGenerator::next()
             break;
 
         case State::Release:
-            level -= (*sustainParam) / (*releaseParam * sampleRate);
+            level -= releaseLevel / (*releaseParam * sampleRate);
 
             if (level <= 0)
             {
