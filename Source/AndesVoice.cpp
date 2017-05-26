@@ -47,7 +47,7 @@ void AndesVoice::stopNote (float velocity, bool allowTailOff)
 {
     if (allowTailOff)
     {
-        envGen.release();
+        envGen.state = EnvelopeGenerator::Release;
     }
     else
     {
@@ -73,7 +73,7 @@ void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
         while (--numSamples >= 0)
         {
             float phase = fmod (currentPhase, 2);
-            const float envLevel = envGen.gen(currentPhase);
+            const float envLevel = envGen.next();
             const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
                                                              *processor.parameters.getRawParameterValue ("y"),
                                                              phase,
@@ -86,7 +86,7 @@ void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
             currentPhase += phaseDelta;
             ++startSample;
 
-            if (envLevel <= 0.005)
+            if (envGen.state == EnvelopeGenerator::Done)
             {
                 // tells the synth that this voice has stopped
                 clearCurrentNote();

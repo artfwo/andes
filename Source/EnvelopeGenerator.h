@@ -23,15 +23,30 @@
 class EnvelopeGenerator
 {
 public:
-    EnvelopeGenerator(AndesAudioProcessor& processor);
+    EnvelopeGenerator (AndesAudioProcessor& processor);
     ~EnvelopeGenerator();
 
-    void reset(double sampleRate);
-    void release();
-    float gen(int sample);
+    void reset (double sampleRate);
+    float next();
+
+    enum State {
+        Attack,
+        Decay,
+        Sustain,
+        Release,
+        Done
+    };
+
+    State state;
 
 private:
-	double sampleRate;
-	float level;
-	bool releasing;
+    AndesAudioProcessor& processor;
+
+    float* attackParam;
+    float* decayParam;
+    float* sustainParam;
+    float* releaseParam;
+
+    double sampleRate;
+    float level;
 };

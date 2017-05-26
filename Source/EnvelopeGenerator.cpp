@@ -18,8 +18,12 @@
 
 #include "EnvelopeGenerator.h"
 
-EnvelopeGenerator::EnvelopeGenerator (AndesAudioProcessor& processor)
+EnvelopeGenerator::EnvelopeGenerator (AndesAudioProcessor& processor) : processor(processor)
 {
+    attackParam = processor.parameters.getRawParameterValue ("env1att");
+    decayParam = processor.parameters.getRawParameterValue ("env1dec");
+    sustainParam = processor.parameters.getRawParameterValue ("env1sus");
+    releaseParam = processor.parameters.getRawParameterValue ("env1rel");
 }
 
 EnvelopeGenerator::~EnvelopeGenerator ()
@@ -29,20 +33,50 @@ EnvelopeGenerator::~EnvelopeGenerator ()
 void EnvelopeGenerator::reset (double sampleRate)
 {
     this->sampleRate = sampleRate;
-    level = 1.0f;
-    releasing = false;
+    level = 0.0f;
+    state = State::Attack;
 }
 
-void EnvelopeGenerator::release ()
+float EnvelopeGenerator::next()
 {
-    releasing = true;
-}
-
-float EnvelopeGenerator::gen (int sample)
-{
-    if (releasing)
+    switch (state)
     {
-        level *= 0.99;
+        case State::Attack:
+            level += 1.0 / (*attackParam * sampleRate);
+
+            if (level >= 1.0f)
+            {
+                state = State::Decay;
+            }
+            break;
+
+        case State::Decay:
+            level -= (1.0 - *sustainParam) / (*decayParam * sampleRate);
+
+            if (level <= *sustainParam)
+            {
+                state = State::Sustain;
+            }
+            break;
+
+        case State::Sustain:
+            level = *sustainParam;
+
+            break;
+
+        case State::Release:
+            level -= (*sustainParam) / (*releaseParam * sampleRate);
+
+            if (level <= 0)
+            {
+                level = 0;
+                state = State::Done;
+            }
+            break;
+
+        default:
+            break;
     }
+
     return level;
 }
