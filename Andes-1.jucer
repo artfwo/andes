@@ -46,7 +46,8 @@
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Andes-1"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Andes-1"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="Andes-1"
+                       linuxArchitecture="-m64"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../JUCE/modules"/>
