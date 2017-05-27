@@ -20,7 +20,7 @@
 
 Noise::Noise ()
 {
-    setSeed (0xa2de51);
+    setSeed (0x740fb143);
 }
 
 Noise::~Noise ()
