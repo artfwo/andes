@@ -1,12 +1,12 @@
-# andes
-
-Andes is a digital software synthesiser plugin in early stages of development.
+Andes is a software synthesiser plugin in early stages of development.
 The core of Andes is an original oscillator which uses a pseudo-3D version of
-[Perlin noise](https://en.wikipedia.org/wiki/Perlin_noise) to produce sound.
+[Perlin noise](https://en.wikipedia.org/wiki/Perlin_noise) to produce distinctively digital sound.
 
 ![Andes Screenshot](screenshot.png)
 
 # download
+
+The downloads below contain VST and standalone executable versions.
 
 * Windows [64-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-win-x86_64.zip) / [32-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-win-x86.zip)
 * Linux [64-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-linux-x86_64.tar.gz) / [32-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-linux-x86.tar.gz)
