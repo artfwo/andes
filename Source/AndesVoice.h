@@ -37,6 +37,7 @@ public:
 
 private:
     double currentPhase, phaseDelta, level;
+    double frequency, normalizedFrequency, maxFrequency, minFrequency;
     AndesAudioProcessor& processor;
     EnvelopeGenerator envGen;
 };

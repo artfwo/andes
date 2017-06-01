@@ -36,10 +36,14 @@ void AndesVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound
     currentPhase = 0.0;
     level = velocity;
 
-    double cyclesPerSecond = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    double cyclesPerSample = cyclesPerSecond / getSampleRate();
+    frequency = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+    maxFrequency = MidiMessage::getMidiNoteInHertz (midiNoteNumber + 4);
+    minFrequency = MidiMessage::getMidiNoteInHertz (midiNoteNumber - 4);
+    normalizedFrequency = frequency / getSampleRate();
 
-    phaseDelta = cyclesPerSample * 2.0;
+    phaseDelta = normalizedFrequency * 2.0;
+    pitchWheelMoved(currentPitchWheelPosition);
+
     envGen.reset(getSampleRate());
 }
 
@@ -60,6 +64,18 @@ void AndesVoice::stopNote (float velocity, bool allowTailOff)
 
 void AndesVoice::pitchWheelMoved (int newPitchWheelValue)
 {
+    double frequencyOffset = (newPitchWheelValue / 8192.0f) - 1.0f;
+    double newFrequency;
+
+    if (frequencyOffset < 0)
+    {
+        newFrequency = frequency + ((frequency - minFrequency) * frequencyOffset);
+    }
+    else
+    {
+        newFrequency = frequency + ((maxFrequency - frequency) * frequencyOffset);
+    }
+    phaseDelta = newFrequency / getSampleRate() * 2.0;
 }
 
 void AndesVoice::controllerMoved (int controllerNumber, int newControllerValue)
