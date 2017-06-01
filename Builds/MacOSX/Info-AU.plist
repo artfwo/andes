@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist>
+  <dict>
+    <key>CFBundleExecutable</key>
+    <string>${EXECUTABLE_NAME}</string>
+    <key>CFBundleIconFile</key>
+    <string></string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleName</key>
+    <string>Andes-1</string>
+    <key>CFBundleDisplayName</key>
+    <string>Andes-1</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.1</string>
+    <key>CFBundleVersion</key>
+    <string>0.1</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>artfwo</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>AudioComponents</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>artfwo: Andes-1</string>
+        <key>description</key>
+        <string>Andes-1</string>
+        <key>factoryFunction</key>
+        <string>Andes1AUFactory</string>
+        <key>manufacturer</key>
+        <string>artF</string>
+        <key>type</key>
+        <string>aumu</string>
+        <key>subtype</key>
+        <string>Ands</string>
+        <key>version</key>
+        <integer>256</integer>
+      </dict>
+    </array>
+  </dict>
+</plist>
