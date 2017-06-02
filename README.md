@@ -6,9 +6,9 @@ The core of Andes is an original oscillator which uses a pseudo-3D version of
 
 # download
 
-* Windows [64-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-win-x86_64.zip) / [32-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-win-x86.zip) (VST/Standalone)
-* Linux [64-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-linux-x86_64.tar.gz) / [32-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-linux-x86.tar.gz) (VST/Standalone)
-* MacOS [universal](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-mac-universal.zip) (VST/AU/Standalone)
+* Windows [64-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-win-x86_64.zip) / [32-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-win-x86.zip) (VST / Standalone)
+* Linux [64-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-linux-x86_64.tar.gz) / [32-bit](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-linux-x86.tar.gz) (VST / Standalone)
+* MacOS [universal](https://github.com/artfwo/andes/releases/download/v0.1/Andes1-0.1-mac-universal.zip) (VST / AU / Standalone)
 * [Source code](https://github.com/artfwo/andes)
 
 The oscillator is still a work in progress so please keep in mind that
