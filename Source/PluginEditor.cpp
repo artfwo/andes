@@ -30,6 +30,7 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
       noiseEditor(processor),
       keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard)
 {
+    LookAndFeel::setDefaultLookAndFeel(&andesLookAndFeel);
     setSize (500, 314);
 
     seedEditor.setReadOnly(true); // TODO: actually should be editable

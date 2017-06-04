@@ -19,6 +19,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AndesLookAndFeel.h"
 #include "PluginProcessor.h"
 #include "WaveformVisualiser.h"
 #include "EnvelopeEditor.h"
@@ -43,8 +44,7 @@ public:
     MidiKeyboardComponent keyboardComponent;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    AndesLookAndFeel andesLookAndFeel;
     AndesAudioProcessor& processor;
 
     TextEditor seedEditor;

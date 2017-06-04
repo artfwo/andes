@@ -388,6 +388,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AndesLookAndFeel.cpp">
+      <Filter>Andes-1\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\NoiseEditor.cpp">
       <Filter>Andes-1\Source</Filter>
     </ClCompile>
@@ -2256,6 +2259,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AndesLookAndFeel.h">
+      <Filter>Andes-1\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\NoiseEditor.h">
       <Filter>Andes-1\Source</Filter>
     </ClInclude>

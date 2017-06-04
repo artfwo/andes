@@ -138,6 +138,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AndesLookAndFeel.cpp"/>
     <ClCompile Include="..\..\Source\NoiseEditor.cpp"/>
     <ClCompile Include="..\..\Source\EnvelopeEditor.cpp"/>
     <ClCompile Include="..\..\Source\EnvelopeGenerator.cpp"/>
@@ -1829,6 +1830,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AndesLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\NoiseEditor.h"/>
     <ClInclude Include="..\..\Source\EnvelopeEditor.h"/>
     <ClInclude Include="..\..\Source\EnvelopeGenerator.h"/>
