@@ -70,8 +70,8 @@ void NoiseEditor::resized()
 {
     sliderGroup.setBounds (0, 0, getWidth(), getHeight());
 
-    int sliderY = 10;
-    int sliderHeight = sliderGroup.getHeight() - 35;    
+    int sliderY = 15;
+    int sliderHeight = sliderGroup.getHeight() - 40;
     int sliderWidth = sliderGroup.getWidth() / 4;
 
     xSlider.setBounds (sliderWidth * 0, sliderY, sliderWidth, sliderHeight);

@@ -17,3 +17,60 @@
 */
 
 #include "AndesLookAndFeel.h"
+
+AndesLookAndFeel::AndesLookAndFeel()
+{
+    setColourScheme (LookAndFeel_V4::getGreyColourScheme());
+}
+
+void AndesLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                                         float rotaryStartAngle, float rotaryEndAngle, Slider& slider)
+{
+    const auto bounds = Rectangle<int> (x, y, width, height).toFloat();
+
+    auto radius = jmin (bounds.getWidth(), bounds.getHeight()) / 2.0f;
+    const auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
+    auto lineW = jmin (4.0f, radius * 0.5f);
+    auto arcRadius = radius - lineW * 0.5f;
+
+    Path backgroundArc;
+    backgroundArc.addCentredArc (bounds.getCentreX(),
+                                 bounds.getCentreY(),
+                                 arcRadius,
+                                 arcRadius,
+                                 0.0f,
+                                 rotaryStartAngle,
+                                 rotaryEndAngle,
+                                 true);
+
+    g.setColour (slider.findColour (Slider::rotarySliderOutlineColourId));
+    g.strokePath (backgroundArc, PathStrokeType (lineW, PathStrokeType::curved, PathStrokeType::rounded));
+
+    if (slider.isEnabled())
+    {
+        Path valueArc;
+        valueArc.addCentredArc (bounds.getCentreX(),
+                                bounds.getCentreY(),
+                                arcRadius,
+                                arcRadius,
+                                0.0f,
+                                rotaryStartAngle,
+                                toAngle,
+                                true);
+
+        g.setColour (slider.findColour (Slider::rotarySliderFillColourId));
+        g.strokePath (valueArc, PathStrokeType (lineW, PathStrokeType::curved, PathStrokeType::rounded));
+    }
+
+    const auto knobRadius = arcRadius - lineW * 1.5f;
+    g.setColour (slider.findColour (Slider::rotarySliderOutlineColourId));
+    g.fillEllipse (Rectangle<float> (knobRadius * 2, knobRadius * 2).withCentre (bounds.getCentre()));
+
+    Path pointer;
+    const float pointerLength = knobRadius * 0.5f;
+    const float pointerThickness = 1.0f;
+    pointer.addRectangle (-pointerThickness * 0.5f, -knobRadius, pointerThickness, pointerLength);
+    pointer.applyTransform (AffineTransform::rotation (toAngle).translated (bounds.getCentreX(), bounds.getCentreY()));
+    g.setColour (slider.findColour (Slider::rotarySliderFillColourId));
+    g.fillPath (pointer);
+}

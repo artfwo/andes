@@ -20,6 +20,11 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class AndesLookAndFeel : public LookAndFeel_V4, public DeletedAtShutdown
+class AndesLookAndFeel : public LookAndFeel_V4
 {
+public:
+    AndesLookAndFeel();
+
+    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
+                           float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override;
 };
