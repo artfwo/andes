@@ -20,7 +20,8 @@
 
 AndesLookAndFeel::AndesLookAndFeel()
 {
-    setColourScheme (LookAndFeel_V4::getGreyColourScheme());
+    setColourScheme (LookAndFeel_V4::getDarkColourScheme());
+    setColour (Slider::rotarySliderFillColourId, Colours::white);
 }
 
 void AndesLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
@@ -68,8 +69,8 @@ void AndesLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, i
 
     Path pointer;
     const float pointerLength = knobRadius * 0.5f;
-    const float pointerThickness = 1.0f;
-    pointer.addRectangle (-pointerThickness * 0.5f, -knobRadius, pointerThickness, pointerLength);
+    const float pointerThickness = 2.0f;
+    pointer.addRoundedRectangle (-pointerThickness * 0.5f, -knobRadius, pointerThickness, pointerLength, pointerThickness / 2.0f);
     pointer.applyTransform (AffineTransform::rotation (toAngle).translated (bounds.getCentreX(), bounds.getCentreY()));
     g.setColour (slider.findColour (Slider::rotarySliderFillColourId));
     g.fillPath (pointer);
