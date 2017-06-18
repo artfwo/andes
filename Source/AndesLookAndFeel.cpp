@@ -22,6 +22,7 @@ AndesLookAndFeel::AndesLookAndFeel()
 {
     setColourScheme (LookAndFeel_V4::getDarkColourScheme());
     setColour (Slider::rotarySliderFillColourId, Colours::white);
+    setColour (Slider::textBoxOutlineColourId, Colours::transparentWhite);
 }
 
 void AndesLookAndFeel::drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,

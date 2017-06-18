@@ -27,11 +27,17 @@ NoiseEditor::NoiseEditor(AndesAudioProcessor& processor) : processor(processor)
 
     xSlider.setSliderStyle (Slider::Rotary);
     xSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    xSlider.setGetTextFromValueFunc([](double value) {
+        return "." + String(round(value * 100));
+    });
     sliderGroup.addAndMakeVisible (&xSlider);
     xAttachment = new SliderAttachment (processor.parameters, "x", xSlider);
 
     ySlider.setSliderStyle (Slider::Rotary);
     ySlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    ySlider.setGetTextFromValueFunc([](double value) {
+        return "." + String(round(value * 100));
+    });
     sliderGroup.addAndMakeVisible (&ySlider);
     yAttachment = new SliderAttachment (processor.parameters, "y", ySlider);
 
@@ -42,6 +48,9 @@ NoiseEditor::NoiseEditor(AndesAudioProcessor& processor) : processor(processor)
 
     persistenceSlider.setSliderStyle (Slider::Rotary);
     persistenceSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    persistenceSlider.setGetTextFromValueFunc([](double value) {
+        return "." + String(round(value * 100));
+    });
     sliderGroup.addAndMakeVisible (&persistenceSlider);
     persistenceAttachment = new SliderAttachment (processor.parameters, "persistence", persistenceSlider);
 

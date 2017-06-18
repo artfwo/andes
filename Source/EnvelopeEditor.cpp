@@ -27,21 +27,26 @@ EnvelopeEditor::EnvelopeEditor(AndesAudioProcessor& processor) : processor(proce
 
     attSlider.setSliderStyle (Slider::Rotary);
     attSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    attSlider.setGetTextFromValueFunc([](double value) { return String(round(value * 1000)) + " ms"; });
     sliderGroup.addAndMakeVisible (&attSlider);
     attAttachment = new SliderAttachment (processor.parameters, "env1att", attSlider);
 
+
     decSlider.setSliderStyle (Slider::Rotary);
     decSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    decSlider.setGetTextFromValueFunc([](double value) { return String(round(value * 1000)) + " ms"; });
     sliderGroup.addAndMakeVisible (&decSlider);
     decAttachment = new SliderAttachment (processor.parameters, "env1dec", decSlider);
 
     susSlider.setSliderStyle (Slider::Rotary);
     susSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    susSlider.setGetTextFromValueFunc([](double value) { return String(round(value * 100)) + "%"; });
     sliderGroup.addAndMakeVisible (&susSlider);
     susAttachment = new SliderAttachment (processor.parameters, "env1sus", susSlider);
 
     relSlider.setSliderStyle (Slider::Rotary);
     relSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    relSlider.setGetTextFromValueFunc([](double value) { return String(round(value * 1000)) + " ms"; });
     sliderGroup.addAndMakeVisible (&relSlider);
     relAttachment = new SliderAttachment (processor.parameters, "env1rel", relSlider);
 

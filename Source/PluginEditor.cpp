@@ -48,6 +48,8 @@ AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
     keyboardComponent.setWantsKeyboardFocus(true);
     addAndMakeVisible (&keyboardComponent);
 
+    sendLookAndFeelChange(); // to re-create slider labels with proper colours
+
     startTimerHz (30);
     srand (time(NULL));
 }

@@ -20,6 +20,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "AndesSlider.h"
 
 //==============================================================================
 /*
@@ -37,10 +38,10 @@ public:
 private:
     GroupComponent sliderGroup;
 
-    Slider xSlider;
-    Slider ySlider;
-    Slider octavesSlider;
-    Slider persistenceSlider;
+    AndesSlider xSlider;
+    AndesSlider ySlider;
+    AndesSlider octavesSlider;
+    AndesSlider persistenceSlider;
 
     Label xLabel;
     Label yLabel;
