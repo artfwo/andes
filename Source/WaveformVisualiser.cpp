@@ -55,12 +55,11 @@ void WaveformVisualiser::paint (Graphics& g)
     {
         float z = ((float) i) / ((float) w) * 2.0f;
 
-        p.lineTo (i, h / 2 - (processor.noise.gen(
-            *processor.parameters.getRawParameterValue ("x"),
-            *processor.parameters.getRawParameterValue ("y"),
+        p.lineTo (i, h / 2 - (processor.noise.gen (
             z,
             (int) *processor.parameters.getRawParameterValue ("octaves"),
-            *processor.parameters.getRawParameterValue ("persistence")
+            *processor.parameters.getRawParameterValue ("persistence"),
+            *processor.parameters.getRawParameterValue ("torsion")
         ) * h / 2));
     }
 

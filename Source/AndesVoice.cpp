@@ -90,11 +90,10 @@ void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSamp
         {
             float phase = fmod (currentPhase, 2);
             const float envLevel = envGen.next();
-            const float currentSample = processor.noise.gen (*processor.parameters.getRawParameterValue ("x"),
-                                                             *processor.parameters.getRawParameterValue ("y"),
-                                                             phase,
+            const float currentSample = processor.noise.gen (phase,
                                                              (int) *processor.parameters.getRawParameterValue ("octaves"),
-                                                             *processor.parameters.getRawParameterValue ("persistence")) * level * envLevel;
+                                                             *processor.parameters.getRawParameterValue ("persistence"),
+                                                             *processor.parameters.getRawParameterValue ("torsion")) * level * envLevel;
 
             for (int i = outputBuffer.getNumChannels(); --i >= 0;)
                 outputBuffer.addSample (i, startSample, currentSample);

@@ -25,18 +25,6 @@
 AndesAudioProcessor::AndesAudioProcessor()
      : AudioProcessor (BusesProperties().withOutput ("Output", AudioChannelSet::stereo(), true)), parameters (*this, nullptr)
 {
-    parameters.createAndAddParameter ("x", "x", String(),
-                                      NormalisableRange<float> (0.0f, 1.0f),
-                                      0.0f,
-                                      nullptr,
-                                      nullptr);
-
-    parameters.createAndAddParameter ("y", "y", String(),
-                                      NormalisableRange<float> (0.0f, 1.0f),
-                                      0.0f,
-                                      nullptr,
-                                      nullptr);
-
     parameters.createAndAddParameter ("octaves", "octaves", String(),
                                       NormalisableRange<float> (1.0f, 16.0f, 1.0f),
                                       1,
@@ -73,6 +61,11 @@ AndesAudioProcessor::AndesAudioProcessor()
                                       nullptr,
                                       nullptr);
 
+    parameters.createAndAddParameter ("torsion", "torsion", String(),
+                                      NormalisableRange<float> (0.0f, 4.0f),
+                                      0.0f,
+                                      nullptr,
+                                      nullptr);
 
     parameters.state = ValueTree (Identifier ("AndesProgram"));
     parameters.state.setProperty ("version", 0, nullptr);
