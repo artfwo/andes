@@ -18,12 +18,12 @@
 
 #include "Noise.h"
 
-Noise::Noise ()
+Noise::Noise()
 {
     setSeed (0x740fb143);
 }
 
-Noise::~Noise ()
+Noise::~Noise()
 {
 }
 
@@ -52,28 +52,31 @@ static inline float lerp (float a0, float a1, float w)
     return (1.0f - w) * a0 + w * a1;
 }
 
-static inline float smootherstep (float x)
-{
-    return x * x * x * (x * (x * 6 - 15) + 10);
-}
-
 float Noise::gen1 (float x, float y, float z)
 {
-    int x1 = x;
-    int x2 = x1 + 1;
-    float g1, g2;
+    float g1, g2, d2;
+    float result = 0;
 
     int z1 = (int) z;
-    int z2 = z1 + 1;
+    int z2 = (z1 + 1);
+
+    float dz1 = z - z1; 
+    float dz2 = dz1 - 1.0f;
 
     g1 = lerp(lerp(gradients_00[z1], gradients_01[z1], x),
               lerp(gradients_10[z1], gradients_11[z1], x), y);
     g2 = lerp(lerp(gradients_00[z2], gradients_01[z2], x),
               lerp(gradients_10[z2], gradients_11[z2], x), y);
 
-    float dz = z - z1;
+    d2 = 1.0 - (dz1 * dz1);
+    d2 = d2 * d2 * d2 * d2;
+    result += d2 * (g1 * dz1);
 
-    return lerp (g1 * dz, g2 * (dz - 1), smootherstep (dz));
+    d2 = 1.0 - (dz2 * dz2);
+    d2 = d2 * d2 * d2 * d2;
+    result += d2 * (g2 * dz2);
+
+    return result * 3.33; // temp normalization value
 }
 
 float Noise::gen (float x, float y, float z, int octaves, float persistence)
@@ -83,7 +86,7 @@ float Noise::gen (float x, float y, float z, int octaves, float persistence)
 
     for (int octave = 0; octave < octaves; ++octave)
     {
-        result += gen1 (x, y, z  * (1 << octave)) * multiplier * 2.0f; // temp normalization value of 2
+        result += gen1 (x, y, z  * (1 << octave)) * multiplier;
         multiplier *= persistence;
     }
 
