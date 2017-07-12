@@ -89,7 +89,8 @@ float Noise::gen (float z, int octaves, float persistence, float torsion)
 
     for (int octave = 0; octave < octaves; ++octave)
     {
-        result += gen1 (z  * (1 << octave), torsion) * multiplier;
+        float t = fmod(torsion * (octave + 1), 4);
+        result += gen1 (z  * (1 << octave), t) * multiplier;
         multiplier *= persistence;
     }
 
