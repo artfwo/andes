@@ -67,12 +67,24 @@ void AndesAudioProcessorEditor::paint (Graphics& g)
 
 void AndesAudioProcessorEditor::resized()
 {
-    seedEditor.setBounds (320, 190, 80, 26);
-    randomizeButton.setBounds (410, 190, 80, 26);
-    waveformVisualiser.setBounds (320, 10, 170, 170);
-    noiseEditor.setBounds (10, 10, 300, 100);
-    env1Editor.setBounds (10, 120, 300, 100);
-    keyboardComponent.setBounds (0, getHeight() - 64, getWidth(), 64);
+    Rectangle<int> area (getLocalBounds());
+
+    const int keyboardHeight = 64;
+    keyboardComponent.setBounds (area.removeFromBottom (keyboardHeight));
+
+    area.reduce(10, 10);
+
+    {
+        Rectangle<int> displayArea (area.removeFromRight (jmax (170, area.getWidth() / 3)).reduced(5));
+        Rectangle<int> buttonsArea (displayArea.removeFromBottom (26));
+
+        seedEditor.setBounds (buttonsArea.removeFromLeft (buttonsArea.getWidth() / 2).withTrimmedRight(5));
+        randomizeButton.setBounds (buttonsArea.withTrimmedLeft(5));
+        waveformVisualiser.setBounds (displayArea.withTrimmedBottom(10));
+    }
+
+    noiseEditor.setBounds (area.removeFromTop (area.getHeight() / 2).reduced(5));
+    env1Editor.setBounds (area.reduced(5));
 }
 
 void AndesAudioProcessorEditor::buttonClicked (Button* button)
