@@ -38,14 +38,17 @@ public:
 private:
     GroupComponent sliderGroup;
 
+    AndesSlider warpSlider;
     AndesSlider torsionSlider;
     AndesSlider octavesSlider;
     AndesSlider persistenceSlider;
 
+    Label warpLabel;
     Label torsionLabel;
     Label octavesLabel;
     Label persistenceLabel;
 
+    ScopedPointer<SliderAttachment> warpAttachment;
     ScopedPointer<SliderAttachment> torsionAttachment;
     ScopedPointer<SliderAttachment> octavesAttachment;
     ScopedPointer<SliderAttachment> persistenceAttachment;

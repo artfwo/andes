@@ -82,15 +82,18 @@ float Noise::gen1 (float z, float torsion)
     return result * 3.33; // temp normalization value
 }
 
-float Noise::gen (float z, int octaves, float persistence, float torsion)
+float Noise::gen (float z, int octaves, float persistence, float torsion, float warping)
 {
     float result = 0;
     float multiplier = 1.0f;
+    float offset = gen1 (z, torsion) * warping;
 
     for (int octave = 0; octave < octaves; ++octave)
     {
-        float t = fmod(torsion * (octave + 1), 4);
-        result += gen1 (z  * (1 << octave), t) * multiplier;
+        float t = fmod(torsion, 4);
+        float value = gen1 (z * (1 << octave) + offset, t) * multiplier;
+        offset = value * warping;
+        result += value;
         multiplier *= persistence;
     }
 

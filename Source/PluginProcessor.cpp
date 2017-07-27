@@ -67,6 +67,12 @@ AndesAudioProcessor::AndesAudioProcessor()
                                       nullptr,
                                       nullptr);
 
+    parameters.createAndAddParameter ("warping", "warping", String(),
+                                      NormalisableRange<float> (0.0f, 1.0f),
+                                      0.0f,
+                                      nullptr,
+                                      nullptr);
+
     parameters.state = ValueTree (Identifier ("AndesProgram"));
     parameters.state.setProperty ("version", 0, nullptr);
     internalParameters = parameters.state.getOrCreateChildWithName ("Internal", nullptr);

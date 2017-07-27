@@ -59,7 +59,8 @@ void WaveformVisualiser::paint (Graphics& g)
             z,
             (int) *processor.parameters.getRawParameterValue ("octaves"),
             *processor.parameters.getRawParameterValue ("persistence"),
-            *processor.parameters.getRawParameterValue ("torsion")
+            *processor.parameters.getRawParameterValue ("torsion"),
+            *processor.parameters.getRawParameterValue ("warping")
         ) * h / 2));
     }
 

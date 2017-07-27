@@ -26,7 +26,7 @@ public:
     Noise();
     ~Noise();
 
-    float gen (float z, int octaves, float persistence, float torsion);
+    float gen (float z, int octaves, float persistence, float torsion, float warping);
 
     uint32_t getSeed();
     void setSeed (uint32_t seed);

@@ -25,6 +25,14 @@ NoiseEditor::NoiseEditor(AndesAudioProcessor& processor) : processor(processor)
     sliderGroup.setText ("Noise");
     addAndMakeVisible (sliderGroup);
 
+    warpSlider.setSliderStyle (Slider::Rotary);
+    warpSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    warpSlider.setGetTextFromValueFunc([](double value) {
+        return "." + String(round(value * 100));
+    });
+    sliderGroup.addAndMakeVisible (&warpSlider);
+    warpAttachment = new SliderAttachment (processor.parameters, "warping", warpSlider);
+
     torsionSlider.setSliderStyle (Slider::Rotary);
     torsionSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
     torsionSlider.setGetTextFromValueFunc([](double value) {
@@ -46,6 +54,10 @@ NoiseEditor::NoiseEditor(AndesAudioProcessor& processor) : processor(processor)
     });
     sliderGroup.addAndMakeVisible (&persistenceSlider);
     persistenceAttachment = new SliderAttachment (processor.parameters, "persistence", persistenceSlider);
+
+    warpLabel.setText("Warping", NotificationType::dontSendNotification);
+    warpLabel.setJustificationType (Justification::centred);
+    sliderGroup.addAndMakeVisible (&warpLabel);
 
     torsionLabel.setText("Torsion", NotificationType::dontSendNotification);
     torsionLabel.setJustificationType (Justification::centred);
@@ -72,10 +84,12 @@ void NoiseEditor::resized()
     int sliderHeight = sliderGroup.getHeight() - 40;
     int sliderWidth = sliderGroup.getWidth() / 4;
 
+    warpSlider.setBounds (sliderWidth * 0, sliderY, sliderWidth, sliderHeight);
     torsionSlider.setBounds (sliderWidth * 1, sliderY, sliderWidth, sliderHeight);
     octavesSlider.setBounds (sliderWidth * 2, sliderY, sliderWidth, sliderHeight);
     persistenceSlider.setBounds (sliderWidth * 3, sliderY, sliderWidth, sliderHeight);
 
+    warpLabel.setBounds(sliderWidth * 0, sliderY + sliderHeight + 5, sliderWidth, 10);
     torsionLabel.setBounds(sliderWidth * 1, sliderY + sliderHeight + 5, sliderWidth, 10);
     octavesLabel.setBounds(sliderWidth * 2, sliderY + sliderHeight + 5, sliderWidth, 10);
     persistenceLabel.setBounds(sliderWidth * 3, sliderY + sliderHeight + 5, sliderWidth, 10);
