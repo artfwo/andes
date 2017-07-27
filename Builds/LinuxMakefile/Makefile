@@ -119,9 +119,13 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/include_juce_opengl_a8a032b.o \
   $(JUCE_OBJDIR)/include_juce_video_be78589.o \
 
-.PHONY: clean all
+.PHONY: clean all VST Standalone
 
-all : $(JUCE_OUTDIR)/$(JUCE_TARGET_VST) $(JUCE_OUTDIR)/$(JUCE_TARGET_STANDALONE_PLUGIN)
+all : VST Standalone
+
+VST : $(JUCE_OUTDIR)/$(JUCE_TARGET_VST)
+Standalone : $(JUCE_OUTDIR)/$(JUCE_TARGET_STANDALONE_PLUGIN)
+
 
 $(JUCE_OUTDIR)/$(JUCE_TARGET_VST) : check-pkg-config $(OBJECTS_VST) $(RESOURCES) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE)
 	@echo Linking "Andes-1 - VST"
