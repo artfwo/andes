@@ -9,7 +9,7 @@
               pluginCode="Ands" pluginChannelConfigs="" pluginIsSynth="1" pluginWantsMidiIn="1"
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="Andes1AU" pluginRTASCategory="" aaxIdentifier="net.artfwo.Andes-1"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.1.0"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.1.2"
               companyName="artfwo" companyWebsite="htts://artfwo.net" companyEmail="art@artfwo.net"
               cppLanguageStandard="11">
   <MAINGROUP id="aZvOox" name="Andes-1">
