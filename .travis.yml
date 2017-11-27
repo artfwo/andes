@@ -1,0 +1,21 @@
+language: generic
+
+addons:
+  apt:
+    packages:
+      - libasound2-dev
+      - libfreetype6-dev
+      - libcurl4-gnutls-dev
+      - xorg-dev
+      - libjack-jackd2-dev
+
+matrix:
+  include:
+    - os: linux
+      language: cpp
+      script:
+        - make -C Builds/LinuxMakefile CONFIG=Release
+    - os: osx
+      language: cpp
+      script:
+        xcodebuild -alltargets -configuration Release -project Builds/MacOSX/Andes-1.xcodeproj/ | xcpretty
