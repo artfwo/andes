@@ -1,6 +1,7 @@
-# andes
-
 [![Build Status](https://travis-ci.org/artfwo/andes.svg?branch=master)](https://travis-ci.org/artfwo/andes)
+[![Build status](https://ci.appveyor.com/api/projects/status/bpfxcc005hxnn3o2?svg=true)](https://ci.appveyor.com/project/artfwo/andes)
+
+# andes
 
 Andes is a digital software synthesiser based on Perlin noise. It is still
 in early stages of development and doesn't have a lot of features yet.
