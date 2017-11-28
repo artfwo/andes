@@ -1,0 +1,11 @@
+version: '{build}'
+image: Visual Studio 2017
+configuration: Release
+platform: x64
+
+install:
+- cmd: git submodule update --init --recursive
+
+build:
+  project: Builds/VisualStudio2017/Andes-1.sln
+  verbosity: minimal
