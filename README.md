@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/artfwo/andes.svg?branch=master)](https://travis-ci.org/artfwo/andes)
-[![Build status](https://ci.appveyor.com/api/projects/status/bpfxcc005hxnn3o2?svg=true)](https://ci.appveyor.com/project/artfwo/andes)
+[![Build status](https://ci.appveyor.com/api/projects/status/bpfxcc005hxnn3o2/branch/master?svg=true)](https://ci.appveyor.com/project/artfwo/andes)
 
 # andes
 

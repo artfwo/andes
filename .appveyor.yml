@@ -1,11 +1,44 @@
 version: '{build}'
 image: Visual Studio 2017
 configuration: Release
-platform: x64
+
+init:
+  - ps: >-
+      if ($env:APPVEYOR_REPO_TAG -eq "true")
+      {
+          Update-AppveyorBuild -Version ($env:APPVEYOR_REPO_TAG_NAME)
+      }
+
+environment:
+  matrix:
+  - andes_build_dir: 'Builds\VisualStudio2017_x64'
+    andes_solution: '%andes_build_dir%\Andes-1.sln'
+    andes_build_arch: x64
+    andes_vst_path: '%andes_build_dir%\%andes_build_arch%\%CONFIGURATION%\VST\Andes-1.dll'
+    andes_exe_path: '%andes_build_dir%\%andes_build_arch%\%CONFIGURATION%\Standalone Plugin\Andes-1.exe'
+    andes_package_name: 'Andes1-%APPVEYOR_BUILD_VERSION%-win64'
+
+  - andes_build_dir: 'Builds\VisualStudio2017_x86'
+    andes_solution: '%andes_build_dir%\Andes-1.sln'
+    andes_build_arch: Win32
+    andes_vst_path: '%andes_build_dir%\%andes_build_arch%\%CONFIGURATION%\VST\Andes-1.dll'
+    andes_exe_path: '%andes_build_dir%\%andes_build_arch%\%CONFIGURATION%\Standalone Plugin\Andes-1.exe'
+    andes_package_name: 'Andes1-%APPVEYOR_BUILD_VERSION%-win32'
 
 install:
-- cmd: git submodule update --init --recursive
+  - cmd: git submodule update --init --recursive
 
 build:
-  project: Builds/VisualStudio2017/Andes-1.sln
+  project: '%andes_solution%'
   verbosity: minimal
+
+after_build:
+  - mkdir "%andes_package_name%"
+  - copy "LICENSE" "%andes_package_name%"
+  - copy "README.md" "%andes_package_name%"
+  - copy "%andes_vst_path%" "%andes_package_name%"
+  - copy "%andes_exe_path%" "%andes_package_name%"
+  - 7z a "%andes_package_name%.zip" "%andes_package_name%\"
+
+artifacts:
+  - path: '%andes_package_name%.zip'
