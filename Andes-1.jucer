@@ -126,7 +126,7 @@
         <MODULEPATH id="juce_audio_basics" path="JUCE\modules"/>
       </MODULEPATHS>
     </VS2017>
-    <VS2017 targetFolder="Builds/VisualStudio2017_x86" windowsTargetPlatformVersion="10.0.16299.0">
+    <VS2017 targetFolder="Builds/VisualStudio2017_w32" windowsTargetPlatformVersion="10.0.16299.0">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
