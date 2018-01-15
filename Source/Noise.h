@@ -35,6 +35,4 @@ private:
     float gradients[65536];
     std::mt19937 random;
     uint32_t seed_;
-
-    float gen1 (float z, float torsion);
 };
