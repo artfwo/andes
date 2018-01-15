@@ -49,7 +49,7 @@ static inline float lerp (float a0, float a1, float w)
     return (1.0f - w) * a0 + w * a1;
 }
 
-float Noise::gen1 (float z, float torsion)
+inline float gen1 (float *gradients, float z, float torsion)
 {
     const int z1 = static_cast<int>(z);
     const float dz1 = z - z1;
@@ -77,12 +77,12 @@ float Noise::gen (float z, int octaves, float persistence, float torsion, float 
 {
     float result = 0;
     float multiplier = 1.0f;
-    float offset = gen1 (z, torsion) * warping;
+    float offset = gen1 (gradients, z, torsion) * warping;
 
     for (int octave = 0; octave < octaves; ++octave)
     {
         float t = fmodf(torsion, 4);
-        float value = gen1 (z * (1 << octave) + offset, t) * multiplier;
+        float value = gen1 (gradients, z * (1 << octave) + offset, t) * multiplier;
         offset = value * warping;
         result += value;
         multiplier *= persistence;
