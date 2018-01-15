@@ -51,35 +51,26 @@ static inline float lerp (float a0, float a1, float w)
 
 float Noise::gen1 (float z, float torsion)
 {
-    float g1, g2, d2;
-    float result = 0;
+    const int z1 = static_cast<int>(z);
+    const float dz1 = z - z1;
+    const float dz2 = dz1 - 1.0f;
 
-    int z1 = static_cast<int>(z);
-    int z2 = (z1 + 1);
+    float g1 = gradients[z1] + torsion;
+    float g2 = gradients[z1 + 1] + torsion;
 
-    float dz1 = z - z1; 
-    float dz2 = dz1 - 1.0f;
+    float d1 = 1.0f - (dz1 * dz1);
+    d1 = d1 * d1 * d1 * d1;
 
-    g1 = gradients[z1];
-    g2 = gradients[z2];
+    float d2 = 1.0f - (dz2 * dz2);
+    d2 = d2 * d2 * d2 * d2;
 
-    g1 = g1 + torsion;
     if (g1 > 1.0f) { g1 = 2.0f - g1; }
-    if (g1 < -1.0f) { g1 = -2.0f - g1; }
+    else if (g1 < -1.0f) { g1 = -2.0f - g1; }
 
-    g2 = g2 + torsion;
     if (g2 > 1.0f) { g2 = 2.0f - g2; }
-    if (g2 < -1.0f) { g2 = -2.0f - g2; }
+    else if (g2 < -1.0f) { g2 = -2.0f - g2; }
 
-    d2 = 1.0f - (dz1 * dz1);
-    d2 = d2 * d2 * d2 * d2;
-    result += d2 * (g1 * dz1);
-
-    d2 = 1.0f - (dz2 * dz2);
-    d2 = d2 * d2 * d2 * d2;
-    result += d2 * (g2 * dz2);
-
-    return result * 3.33f; // temp normalization value
+    return (d1 * (g1 * dz1) + d2 * (g2 * dz2)) * 3.33f; // temp normalization value
 }
 
 float Noise::gen (float z, int octaves, float persistence, float torsion, float warping)
