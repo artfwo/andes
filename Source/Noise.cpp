@@ -54,7 +54,7 @@ float Noise::gen1 (float z, float torsion)
     float g1, g2, d2;
     float result = 0;
 
-    int z1 = (int) z;
+    int z1 = static_cast<int>(z);
     int z2 = (z1 + 1);
 
     float dz1 = z - z1; 
@@ -71,15 +71,15 @@ float Noise::gen1 (float z, float torsion)
     if (g2 > 1.0f) { g2 = 2.0f - g2; }
     if (g2 < -1.0f) { g2 = -2.0f - g2; }
 
-    d2 = 1.0 - (dz1 * dz1);
+    d2 = 1.0f - (dz1 * dz1);
     d2 = d2 * d2 * d2 * d2;
     result += d2 * (g1 * dz1);
 
-    d2 = 1.0 - (dz2 * dz2);
+    d2 = 1.0f - (dz2 * dz2);
     d2 = d2 * d2 * d2 * d2;
     result += d2 * (g2 * dz2);
 
-    return result * 3.33; // temp normalization value
+    return result * 3.33f; // temp normalization value
 }
 
 float Noise::gen (float z, int octaves, float persistence, float torsion, float warping)
@@ -90,7 +90,7 @@ float Noise::gen (float z, int octaves, float persistence, float torsion, float 
 
     for (int octave = 0; octave < octaves; ++octave)
     {
-        float t = fmod(torsion, 4);
+        float t = fmodf(torsion, 4);
         float value = gen1 (z * (1 << octave) + offset, t) * multiplier;
         offset = value * warping;
         result += value;
