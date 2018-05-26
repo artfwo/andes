@@ -9,9 +9,10 @@
               pluginCode="Ands" pluginChannelConfigs="" pluginIsSynth="1" pluginWantsMidiIn="1"
               pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1"
               pluginAUExportPrefix="Andes1AU" pluginRTASCategory="" aaxIdentifier="net.artfwo.Andes-1"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.2.0"
-              companyName="artfwo" companyWebsite="htts://artfwo.net" companyEmail="art@artfwo.net"
-              cppLanguageStandard="11" companyCopyright="artfwo">
+              pluginAAXCategory="2" jucerVersion="5.3.2" companyName="artfwo"
+              companyWebsite="htts://artfwo.net" companyEmail="art@artfwo.net"
+              cppLanguageStandard="11" companyCopyright="artfwo" pluginFormats="buildVST,buildAU,buildStandalone"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn,pluginEditorRequiresKeys">
   <MAINGROUP id="aZvOox" name="Andes-1">
     <GROUP id="{7AF81C8A-37A1-221C-D6EB-D5BCF7D46A91}" name="Source">
       <FILE id="k1RRRm" name="AndesSlider.cpp" compile="1" resource="0" file="Source/AndesSlider.cpp"/>
@@ -171,5 +172,8 @@
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_JACK="enabled" JUCE_WEB_BROWSER="disabled"/>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_JACK="1" JUCE_WEB_BROWSER="0"/>
+  <LIVE_SETTINGS>
+    <LINUX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

@@ -184,7 +184,7 @@
 					44DDCDCABC0A59C7856F2F88,
 					20416FAB7A6780545E70BEE6,
 					97A0F8EBD9DA47C52B9EDD75,
-					85904334686072E38DB78E3E, ); name = "Juce Modules"; sourceTree = "<group>"; };
+					85904334686072E38DB78E3E, ); name = "JUCE Modules"; sourceTree = "<group>"; };
 		8A3D787AE883C4B548D0185A = {isa = PBXGroup; children = (
 					CA0B4DF87CA53D670B5923D7,
 					4FDC70D3DA6F9D90C83B860E,
@@ -208,7 +208,7 @@
 					FDB2DEEE22CF6B88136731FE,
 					3AEBDB246FDEEF041262EF2A,
 					495FADD7ADF40FC361653026,
-					A40B8BC048E48D6423DFEC2F, ); name = "Juce Library Code"; sourceTree = "<group>"; };
+					A40B8BC048E48D6423DFEC2F, ); name = "JUCE Library Code"; sourceTree = "<group>"; };
 		2A7B93C85E610797C84B6FF6 = {isa = PBXGroup; children = (
 					12C91EB6857AB1A5595E63BA,
 					15405E30EA81D10888834DD6,
@@ -251,6 +251,7 @@
 		DBC7BD79AC1D5AC2A9A9B4AE = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -289,6 +290,7 @@
 		D91F4782489119EB073DCFED = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -318,6 +320,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/VST/";
 				LIBRARY_STYLE = Bundle;
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-bundle -lAndes-1";
@@ -328,6 +331,7 @@
 		BDFE83BDEDC0CE07A2E90D25 = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -367,6 +371,7 @@
 		1FF46FEE67A773C2261E4A0C = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -396,6 +401,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
 				LIBRARY_STYLE = Bundle;
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-bundle -lAndes-1";
@@ -407,6 +413,7 @@
 		E250C718393029FC0CB2FE84 = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -439,6 +446,7 @@
 		E40C71B12612AC89AA43E6B3 = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -463,6 +471,7 @@
 				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "../../JUCE/modules", "../../JUCE/modules/juce_audio_plugin_client", "$(inherited)");
 				INFOPLIST_FILE = Info-Standalone_Plugin.plist;
 				INFOPLIST_PREPROCESS = NO;
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				OTHER_LDFLAGS = "-lAndes-1";
@@ -472,6 +481,7 @@
 		A07F1C54387EAE0C55CB4B6E = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -503,6 +513,7 @@
 		42C1B5F1476F23E79D020295 = {isa = XCBuildConfiguration; buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
@@ -527,6 +538,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "../../JUCE/modules", "../../JUCE/modules/juce_audio_plugin_client", "$(inherited)");
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.artfwo.Andes-1;
@@ -740,7 +752,7 @@
 					5483631B6FED0E3FD373D84F, ); runOnlyForDeploymentPostprocessing = 0; };
 		BFD144456F021B6E16628AAB = {isa = PBXNativeTarget; buildConfigurationList = C95A4AAAEEF628243C1EF2D6; buildPhases = (
 					ACD71192DECE740B44F47F35, ); buildRules = ( ); dependencies = (  ); name = "Andes-1 - Shared Code"; productName = "Andes-1"; productReference = 2577924BDA6AF29A03C7DE64; productType = "com.apple.product-type.library.static"; };
-		EEB598C8F75A0668BC35689B = {isa = PBXProject; buildConfigurationList = D654B078894A86ADF9C792FC; attributes = { LastUpgradeCheck = 0830; TargetAttributes = { 729E6D00D741D2341195A6FB = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };17CC35BF5BF384B86EBC0463 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };D14C738CF3B325FD7325143E = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };174683CF267DC273712E5F4F = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };BFD144456F021B6E16628AAB = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; }; }; }; compatibilityVersion = "Xcode 3.2"; hasScannedForEncodings = 0; mainGroup = 2DD6F75E384F40D9F4C79B46; projectDirPath = ""; projectRoot = ""; targets = (729E6D00D741D2341195A6FB, 17CC35BF5BF384B86EBC0463, D14C738CF3B325FD7325143E, 174683CF267DC273712E5F4F, BFD144456F021B6E16628AAB); };
+		EEB598C8F75A0668BC35689B = {isa = PBXProject; buildConfigurationList = D654B078894A86ADF9C792FC; attributes = { LastUpgradeCheck = 0930; ORGANIZATIONNAME = "artfwo"; TargetAttributes = { 729E6D00D741D2341195A6FB = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };17CC35BF5BF384B86EBC0463 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };D14C738CF3B325FD7325143E = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };174683CF267DC273712E5F4F = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; };BFD144456F021B6E16628AAB = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; }; }; }; compatibilityVersion = "Xcode 3.2"; hasScannedForEncodings = 0; mainGroup = 2DD6F75E384F40D9F4C79B46; projectDirPath = ""; projectRoot = ""; targets = (729E6D00D741D2341195A6FB, 17CC35BF5BF384B86EBC0463, D14C738CF3B325FD7325143E, 174683CF267DC273712E5F4F, BFD144456F021B6E16628AAB); };
 	};
 	rootObject = EEB598C8F75A0668BC35689B;
 }
