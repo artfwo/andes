@@ -39,21 +39,21 @@ private:
     GroupComponent sliderGroup;
 
     AndesSlider warpSlider;
-    AndesSlider torsionSlider;
+    AndesSlider offsetSlider;
     AndesSlider octavesSlider;
     AndesSlider persistenceSlider;
 
     Label warpLabel;
-    Label torsionLabel;
+    Label offsetLabel;
     Label octavesLabel;
     Label persistenceLabel;
 
     ScopedPointer<SliderAttachment> warpAttachment;
-    ScopedPointer<SliderAttachment> torsionAttachment;
+    ScopedPointer<SliderAttachment> offsetAttachment;
     ScopedPointer<SliderAttachment> octavesAttachment;
     ScopedPointer<SliderAttachment> persistenceAttachment;
 
     AndesAudioProcessor& processor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NoiseEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NoiseEditor)
 };

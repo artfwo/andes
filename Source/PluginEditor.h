@@ -33,11 +33,11 @@ class AndesAudioProcessorEditor : public AudioProcessorEditor,
 public:
     typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
-    AndesAudioProcessorEditor (AndesAudioProcessor&);
+    AndesAudioProcessorEditor(AndesAudioProcessor&);
     ~AndesAudioProcessorEditor();
 
     //==============================================================================
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
     MidiKeyboardState keyboardState;
@@ -54,10 +54,10 @@ private:
     EnvelopeEditor env1Editor;
     NoiseEditor noiseEditor;
 
-    void buttonClicked (Button* button) override;
-    void handleNoteOn (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
-    void handleNoteOff (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
+    void buttonClicked(Button* button) override;
+    void handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
+    void handleNoteOff(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity) override;
     void timerCallback() override;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AndesAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AndesAudioProcessorEditor)
 };

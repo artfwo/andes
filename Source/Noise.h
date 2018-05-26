@@ -26,15 +26,15 @@ public:
     Noise();
     ~Noise();
 
-    float gen (float z, int octaves, float persistence, float torsion, float warping);
+    float gen(float z, int octaves, float persistence, float offset, float warping);
 
     uint32_t getSeed();
-    void setSeed (uint32_t seed);
+    void setSeed(uint32_t seed);
 
 private:
     float gradients[65536];
     std::mt19937 random;
     uint32_t seed_;
 
-    float gen1 (float z, float torsion);
+    float gen1(float z, float offset);
 };

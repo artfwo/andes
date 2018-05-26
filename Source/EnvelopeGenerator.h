@@ -23,10 +23,10 @@
 class EnvelopeGenerator
 {
 public:
-    EnvelopeGenerator (AndesAudioProcessor& processor);
+    EnvelopeGenerator(AndesAudioProcessor& processor);
     ~EnvelopeGenerator();
 
-    void reset (double sampleRate);
+    void reset(double sampleRate);
     void release();
     float next();
 

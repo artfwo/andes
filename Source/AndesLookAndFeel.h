@@ -25,6 +25,6 @@ class AndesLookAndFeel : public LookAndFeel_V4
 public:
     AndesLookAndFeel();
 
-    void drawRotarySlider (Graphics& g, int x, int y, int width, int height, float sliderPos,
-                           float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override;
+    void drawRotarySlider(Graphics& g, int x, int y, int width, int height, float sliderPos,
+                          float rotaryStartAngle, float rotaryEndAngle, Slider& slider) override;
 };

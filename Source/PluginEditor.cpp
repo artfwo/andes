@@ -23,35 +23,35 @@
 #include <iomanip>
 
 //==============================================================================
-AndesAudioProcessorEditor::AndesAudioProcessorEditor (AndesAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p),
+AndesAudioProcessorEditor::AndesAudioProcessorEditor(AndesAudioProcessor& p)
+    : AudioProcessorEditor(&p), processor(p),
       waveformVisualiser(processor),
       env1Editor(processor),
       noiseEditor(processor),
-      keyboardComponent (keyboardState, MidiKeyboardComponent::horizontalKeyboard)
+      keyboardComponent(keyboardState, MidiKeyboardComponent::horizontalKeyboard)
 {
     LookAndFeel::setDefaultLookAndFeel(&andesLookAndFeel);
-    setSize (500, 314);
+    setSize(500, 314);
 
     seedEditor.setReadOnly(true); // TODO: actually should be editable
-    seedEditor.setText (String::toHexString((int) processor.noise.getSeed()));
+    seedEditor.setText(String::toHexString((int) processor.noise.getSeed()));
 
-    randomizeButton.addListener (this);
-    randomizeButton.setButtonText ("Randomize");
+    randomizeButton.addListener(this);
+    randomizeButton.setButtonText("Randomize");
 
-    addAndMakeVisible (&seedEditor);
-    addAndMakeVisible (&randomizeButton);
-    addAndMakeVisible (&waveformVisualiser);
-    addAndMakeVisible (&env1Editor);
-    addAndMakeVisible (&noiseEditor);
+    addAndMakeVisible(&seedEditor);
+    addAndMakeVisible(&randomizeButton);
+    addAndMakeVisible(&waveformVisualiser);
+    addAndMakeVisible(&env1Editor);
+    addAndMakeVisible(&noiseEditor);
 
     keyboardComponent.setWantsKeyboardFocus(true);
-    addAndMakeVisible (&keyboardComponent);
+    addAndMakeVisible(&keyboardComponent);
 
     sendLookAndFeelChange(); // to re-create slider labels with proper colours
 
-    startTimerHz (30);
-    srand (time(NULL));
+    startTimerHz(30);
+    srand(time(NULL));
 }
 
 AndesAudioProcessorEditor::~AndesAudioProcessorEditor()
@@ -59,58 +59,58 @@ AndesAudioProcessorEditor::~AndesAudioProcessorEditor()
 }
 
 //==============================================================================
-void AndesAudioProcessorEditor::paint (Graphics& g)
+void AndesAudioProcessorEditor::paint(Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
 
 void AndesAudioProcessorEditor::resized()
 {
-    Rectangle<int> area (getLocalBounds());
+    Rectangle<int> area(getLocalBounds());
 
     const int keyboardHeight = 64;
-    keyboardComponent.setBounds (area.removeFromBottom (keyboardHeight));
+    keyboardComponent.setBounds(area.removeFromBottom(keyboardHeight));
 
     area.reduce(10, 10);
 
     {
-        Rectangle<int> displayArea (area.removeFromRight (jmax (170, area.getWidth() / 3)).reduced(5));
-        Rectangle<int> buttonsArea (displayArea.removeFromBottom (26));
+        Rectangle<int> displayArea(area.removeFromRight(jmax(170, area.getWidth() / 3)).reduced(5));
+        Rectangle<int> buttonsArea(displayArea.removeFromBottom(26));
 
-        seedEditor.setBounds (buttonsArea.removeFromLeft (buttonsArea.getWidth() / 2).withTrimmedRight(5));
-        randomizeButton.setBounds (buttonsArea.withTrimmedLeft(5));
-        waveformVisualiser.setBounds (displayArea.withTrimmedBottom(10));
+        seedEditor.setBounds(buttonsArea.removeFromLeft(buttonsArea.getWidth() / 2).withTrimmedRight(5));
+        randomizeButton.setBounds(buttonsArea.withTrimmedLeft(5));
+        waveformVisualiser.setBounds(displayArea.withTrimmedBottom(10));
     }
 
-    noiseEditor.setBounds (area.removeFromTop (area.getHeight() / 2).reduced(5));
-    env1Editor.setBounds (area.reduced(5));
+    noiseEditor.setBounds(area.removeFromTop(area.getHeight() / 2).reduced(5));
+    env1Editor.setBounds(area.reduced(5));
 }
 
-void AndesAudioProcessorEditor::buttonClicked (Button* button)
+void AndesAudioProcessorEditor::buttonClicked(Button* button)
 {
-    uint32_t seed = rand();
-    processor.noise.setSeed (seed);
-
     if (button == &randomizeButton)
     {
-        seedEditor.setText (String::toHexString((int) seed));
+        uint32_t seed = rand();
+        processor.noise.setSeed(seed);
+
+        seedEditor.setText(String::toHexString((int) seed));
         waveformVisualiser.update();
     }
 }
 
-void AndesAudioProcessorEditor::handleNoteOn (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
+void AndesAudioProcessorEditor::handleNoteOn(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
 {
 
 }
 
-void AndesAudioProcessorEditor::handleNoteOff (MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
+void AndesAudioProcessorEditor::handleNoteOff(MidiKeyboardState* source, int midiChannel, int midiNoteNumber, float velocity)
 {
 
 }
 
-void AndesAudioProcessorEditor::timerCallback ()
+void AndesAudioProcessorEditor::timerCallback()
 {
     waveformVisualiser.update();
-    seedEditor.setText (String::toHexString((int) processor.noise.getSeed()));
+    seedEditor.setText(String::toHexString((int) processor.noise.getSeed()));
 }

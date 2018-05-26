@@ -30,7 +30,7 @@ public:
     WaveformVisualiser(AndesAudioProcessor& processor);
     ~WaveformVisualiser();
 
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
     void resized() override;
 
     void update();
@@ -38,5 +38,5 @@ public:
 private:
     AndesAudioProcessor& processor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WaveformVisualiser)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WaveformVisualiser)
 };

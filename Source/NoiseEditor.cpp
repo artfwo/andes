@@ -22,54 +22,54 @@
 //==============================================================================
 NoiseEditor::NoiseEditor(AndesAudioProcessor& processor) : processor(processor)
 {
-    sliderGroup.setText ("Noise");
-    addAndMakeVisible (sliderGroup);
+    sliderGroup.setText("Noise");
+    addAndMakeVisible(sliderGroup);
 
-    warpSlider.setSliderStyle (Slider::Rotary);
-    warpSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    warpSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+    warpSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 15);
     warpSlider.setGetTextFromValueFunc([](double value) {
         return "." + String(round(value * 100));
     });
-    sliderGroup.addAndMakeVisible (&warpSlider);
-    warpAttachment = new SliderAttachment (processor.parameters, "warping", warpSlider);
+    sliderGroup.addAndMakeVisible(&warpSlider);
+    warpAttachment = new SliderAttachment(processor.parameters, "warping", warpSlider);
 
-    torsionSlider.setSliderStyle (Slider::Rotary);
-    torsionSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    torsionSlider.setGetTextFromValueFunc([](double value) {
+    offsetSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+    offsetSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 15);
+    offsetSlider.setGetTextFromValueFunc([](double value) {
         return String(round(value / 4.0f * 360)) + String(CharPointer_UTF8 ("\xc2\xb0"));
     });
-    torsionSlider.setRotaryParameters (0, float_Pi * 2.0f, false);
-    sliderGroup.addAndMakeVisible (&torsionSlider);
-    torsionAttachment = new SliderAttachment (processor.parameters, "torsion", torsionSlider);
+    offsetSlider.setRotaryParameters(0, float_Pi * 2.0f, false);
+    sliderGroup.addAndMakeVisible(&offsetSlider);
+    offsetAttachment = new SliderAttachment(processor.parameters, "offset", offsetSlider);
 
-    octavesSlider.setSliderStyle (Slider::Rotary);
-    octavesSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
-    sliderGroup.addAndMakeVisible (&octavesSlider);
-    octavesAttachment = new SliderAttachment (processor.parameters, "octaves", octavesSlider);
+    octavesSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+    octavesSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 15);
+    sliderGroup.addAndMakeVisible(&octavesSlider);
+    octavesAttachment = new SliderAttachment(processor.parameters, "octaves", octavesSlider);
 
-    persistenceSlider.setSliderStyle (Slider::Rotary);
-    persistenceSlider.setTextBoxStyle (Slider::TextBoxBelow, true, 50, 15);
+    persistenceSlider.setSliderStyle(Slider::RotaryVerticalDrag);
+    persistenceSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 15);
     persistenceSlider.setGetTextFromValueFunc([](double value) {
         return "." + String(round(value * 100));
     });
-    sliderGroup.addAndMakeVisible (&persistenceSlider);
-    persistenceAttachment = new SliderAttachment (processor.parameters, "persistence", persistenceSlider);
+    sliderGroup.addAndMakeVisible(&persistenceSlider);
+    persistenceAttachment = new SliderAttachment(processor.parameters, "persistence", persistenceSlider);
 
     warpLabel.setText("Warping", NotificationType::dontSendNotification);
-    warpLabel.setJustificationType (Justification::centred);
-    sliderGroup.addAndMakeVisible (&warpLabel);
+    warpLabel.setJustificationType(Justification::centred);
+    sliderGroup.addAndMakeVisible(&warpLabel);
 
-    torsionLabel.setText("Torsion", NotificationType::dontSendNotification);
-    torsionLabel.setJustificationType (Justification::centred);
-    sliderGroup.addAndMakeVisible (&torsionLabel);
+    offsetLabel.setText("Offset", NotificationType::dontSendNotification);
+    offsetLabel.setJustificationType(Justification::centred);
+    sliderGroup.addAndMakeVisible(&offsetLabel);
 
     octavesLabel.setText("Octaves", NotificationType::dontSendNotification);
-    octavesLabel.setJustificationType (Justification::centred);
-    sliderGroup.addAndMakeVisible (&octavesLabel);
+    octavesLabel.setJustificationType(Justification::centred);
+    sliderGroup.addAndMakeVisible(&octavesLabel);
 
     persistenceLabel.setText("Persistence", NotificationType::dontSendNotification);
-    persistenceLabel.setJustificationType (Justification::centred);
-    sliderGroup.addAndMakeVisible (&persistenceLabel);
+    persistenceLabel.setJustificationType(Justification::centred);
+    sliderGroup.addAndMakeVisible(&persistenceLabel);
 }
 
 NoiseEditor::~NoiseEditor()
@@ -78,19 +78,19 @@ NoiseEditor::~NoiseEditor()
 
 void NoiseEditor::resized()
 {
-    sliderGroup.setBounds (0, 0, getWidth(), getHeight());
+    sliderGroup.setBounds(0, 0, getWidth(), getHeight());
 
     int sliderY = 15;
     int sliderHeight = sliderGroup.getHeight() - 40;
     int sliderWidth = sliderGroup.getWidth() / 4;
 
-    warpSlider.setBounds (sliderWidth * 0, sliderY, sliderWidth, sliderHeight);
-    torsionSlider.setBounds (sliderWidth * 1, sliderY, sliderWidth, sliderHeight);
-    octavesSlider.setBounds (sliderWidth * 2, sliderY, sliderWidth, sliderHeight);
-    persistenceSlider.setBounds (sliderWidth * 3, sliderY, sliderWidth, sliderHeight);
+    warpSlider.setBounds(sliderWidth * 0, sliderY, sliderWidth, sliderHeight);
+    offsetSlider.setBounds(sliderWidth * 1, sliderY, sliderWidth, sliderHeight);
+    octavesSlider.setBounds(sliderWidth * 2, sliderY, sliderWidth, sliderHeight);
+    persistenceSlider.setBounds(sliderWidth * 3, sliderY, sliderWidth, sliderHeight);
 
     warpLabel.setBounds(sliderWidth * 0, sliderY + sliderHeight + 5, sliderWidth, 10);
-    torsionLabel.setBounds(sliderWidth * 1, sliderY + sliderHeight + 5, sliderWidth, 10);
+    offsetLabel.setBounds(sliderWidth * 1, sliderY + sliderHeight + 5, sliderWidth, 10);
     octavesLabel.setBounds(sliderWidth * 2, sliderY + sliderHeight + 5, sliderWidth, 10);
     persistenceLabel.setBounds(sliderWidth * 3, sliderY + sliderHeight + 5, sliderWidth, 10);
 }

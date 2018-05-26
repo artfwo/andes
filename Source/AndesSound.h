@@ -25,6 +25,6 @@ class AndesSound : public SynthesiserSound
 public:
     AndesSound();
 
-    bool appliesToNote (int /*midiNoteNumber*/) override;
-    bool appliesToChannel (int /*midiChannel*/) override;
+    bool appliesToNote(int /*midiNoteNumber*/) override;
+    bool appliesToChannel(int /*midiChannel*/) override;
 };

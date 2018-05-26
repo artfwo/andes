@@ -23,68 +23,68 @@
 
 //==============================================================================
 AndesAudioProcessor::AndesAudioProcessor()
-     : AudioProcessor (BusesProperties().withOutput ("Output", AudioChannelSet::stereo(), true)), parameters (*this, nullptr)
+     : AudioProcessor(BusesProperties().withOutput("Output", AudioChannelSet::stereo(), true)), parameters(*this, nullptr)
 {
-    parameters.createAndAddParameter ("octaves", "octaves", String(),
-                                      NormalisableRange<float> (1.0f, 16.0f, 1.0f),
-                                      1,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("octaves", "octaves", String(),
+                                     NormalisableRange<float> (1.0f, 16.0f, 1.0f),
+                                     1,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("persistence", "persistence", String(),
-                                      NormalisableRange<float> (0.0f, 1.0f),
-                                      0.5f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("persistence", "persistence", String(),
+                                     NormalisableRange<float> (0.0f, 1.0f),
+                                     0.5f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("env1att", "env1att", String(),
-                                      NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
-                                      0.005f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("env1att", "env1att", String(),
+                                     NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
+                                     0.005f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("env1dec", "env1dec", String(),
-                                      NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
-                                      0.2f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("env1dec", "env1dec", String(),
+                                     NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
+                                     0.2f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("env1sus", "env1sus", String(),
-                                      NormalisableRange<float> (0.0f, 1.0f),
-                                      0.5f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("env1sus", "env1sus", String(),
+                                     NormalisableRange<float> (0.0f, 1.0f),
+                                     0.5f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("env1rel", "env1rel", String(),
-                                      NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
-                                      0.050f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("env1rel", "env1rel", String(),
+                                     NormalisableRange<float> (0.001f, 9.0f, 0, 0.55),
+                                     0.050f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("torsion", "torsion", String(),
-                                      NormalisableRange<float> (0.0f, 4.0f),
-                                      0.0f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("offset", "offset", String(),
+                                     NormalisableRange<float> (0.0f, 4.0f),
+                                     0.0f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.createAndAddParameter ("warping", "warping", String(),
-                                      NormalisableRange<float> (0.0f, 1.0f),
-                                      0.0f,
-                                      nullptr,
-                                      nullptr);
+    parameters.createAndAddParameter("warping", "warping", String(),
+                                     NormalisableRange<float> (0.0f, 1.0f),
+                                     0.0f,
+                                     nullptr,
+                                     nullptr);
 
-    parameters.state = ValueTree (Identifier ("AndesProgram"));
-    parameters.state.setProperty ("version", 0, nullptr);
-    internalParameters = parameters.state.getOrCreateChildWithName ("Internal", nullptr);
+    parameters.state = ValueTree(Identifier("AndesProgram"));
+    parameters.state.setProperty("version", 0, nullptr);
+    internalParameters = parameters.state.getOrCreateChildWithName("Internal", nullptr);
 
     synth.clearVoices();
     synth.clearSounds();
 
     for (int i = 8; --i >= 0; ) {
-        synth.addVoice (new AndesVoice (*this));
+        synth.addVoice(new AndesVoice(*this));
     }
 
-    synth.addSound (new AndesSound());
+    synth.addSound(new AndesSound());
 }
 
 AndesAudioProcessor::~AndesAudioProcessor()
@@ -131,25 +131,25 @@ int AndesAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-void AndesAudioProcessor::setCurrentProgram (int index)
+void AndesAudioProcessor::setCurrentProgram(int index)
 {
 }
 
-const String AndesAudioProcessor::getProgramName (int index)
+const String AndesAudioProcessor::getProgramName(int index)
 {
     return "Default";
 }
 
-void AndesAudioProcessor::changeProgramName (int index, const String& newName)
+void AndesAudioProcessor::changeProgramName(int index, const String& newName)
 {
 }
 
 //==============================================================================
-void AndesAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void AndesAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    synth.setCurrentPlaybackSampleRate (sampleRate);
+    synth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void AndesAudioProcessor::releaseResources()
@@ -159,10 +159,10 @@ void AndesAudioProcessor::releaseResources()
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool AndesAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool AndesAudioProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
-    ignoreUnused (layouts);
+    ignoreUnused(layouts);
     return true;
   #else
     // This is the place where you check if the layout is supported.
@@ -182,7 +182,7 @@ bool AndesAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) co
 }
 #endif
 
-void AndesAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void AndesAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
@@ -194,17 +194,17 @@ void AndesAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
     for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+        buffer.clear(i, 0, buffer.getNumSamples());
 
     if (AudioProcessorEditor* editor = getActiveEditor())
     {
         if (AndesAudioProcessorEditor* andesEditor = dynamic_cast<AndesAudioProcessorEditor*> (editor))
         {
-            andesEditor->keyboardState.processNextMidiBuffer (midiMessages, 0, buffer.getNumSamples(), true);
+            andesEditor->keyboardState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
         }
     }
 
-    synth.renderNextBlock (buffer, midiMessages, 0, buffer.getNumSamples());
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
@@ -215,28 +215,28 @@ bool AndesAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* AndesAudioProcessor::createEditor()
 {
-    return new AndesAudioProcessorEditor (*this);
+    return new AndesAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void AndesAudioProcessor::getStateInformation (MemoryBlock& destData)
+void AndesAudioProcessor::getStateInformation(MemoryBlock& destData)
 {
-    internalParameters.setProperty ("seed", (int64) noise.getSeed(), nullptr);
-    ScopedPointer<XmlElement> xml (parameters.state.createXml());
-    copyXmlToBinary (*xml, destData);
+    internalParameters.setProperty("seed", (int64) noise.getSeed(), nullptr);
+    ScopedPointer<XmlElement> xml(parameters.state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
-void AndesAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void AndesAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+    ScopedPointer<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
     
     if (xmlState != nullptr)
     {
-        if (xmlState->hasTagName (parameters.state.getType()))
+        if (xmlState->hasTagName(parameters.state.getType()))
         {
-            parameters.state = ValueTree::fromXml (*xmlState);
-            internalParameters = parameters.state.getOrCreateChildWithName ("Internal", nullptr);
-            noise.setSeed ((uint32_t) (int64) internalParameters.getProperty ("seed"));
+            parameters.state = ValueTree::fromXml(*xmlState);
+            internalParameters = parameters.state.getOrCreateChildWithName("Internal", nullptr);
+            noise.setSeed((uint32_t) (int64) internalParameters.getProperty("seed"));
         }
     }
 }

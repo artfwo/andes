@@ -18,19 +18,19 @@
 
 #include "EnvelopeGenerator.h"
 
-EnvelopeGenerator::EnvelopeGenerator (AndesAudioProcessor& processor) : processor(processor)
+EnvelopeGenerator::EnvelopeGenerator(AndesAudioProcessor& processor) : processor(processor)
 {
-    attackParam = processor.parameters.getRawParameterValue ("env1att");
-    decayParam = processor.parameters.getRawParameterValue ("env1dec");
-    sustainParam = processor.parameters.getRawParameterValue ("env1sus");
-    releaseParam = processor.parameters.getRawParameterValue ("env1rel");
+    attackParam = processor.parameters.getRawParameterValue("env1att");
+    decayParam = processor.parameters.getRawParameterValue("env1dec");
+    sustainParam = processor.parameters.getRawParameterValue("env1sus");
+    releaseParam = processor.parameters.getRawParameterValue("env1rel");
 }
 
-EnvelopeGenerator::~EnvelopeGenerator ()
+EnvelopeGenerator::~EnvelopeGenerator()
 {
 }
 
-void EnvelopeGenerator::reset (double sampleRate)
+void EnvelopeGenerator::reset(double sampleRate)
 {
     this->sampleRate = sampleRate;
     level = 0.0f;

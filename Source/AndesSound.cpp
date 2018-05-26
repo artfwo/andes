@@ -18,16 +18,16 @@
 
 #include "AndesSound.h"
 
-AndesSound::AndesSound ()
+AndesSound::AndesSound()
 {
 }
 
-bool AndesSound::appliesToNote (int /*midiNoteNumber*/)
+bool AndesSound::appliesToNote(int /*midiNoteNumber*/)
 {
     return true;
 }
 
-bool AndesSound::appliesToChannel (int /*midiChannel*/)
+bool AndesSound::appliesToChannel(int /*midiChannel*/)
 {
     return true;
 }

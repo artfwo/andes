@@ -28,16 +28,16 @@ AndesSlider::~AndesSlider()
 {
 }
 
-void AndesSlider::setGetTextFromValueFunc (std::function<String(double)> getTextFromValueFunc)
+void AndesSlider::setGetTextFromValueFunc(std::function<String(double)> getTextFromValueFunc)
 {
     this->getTextFromValueFunc = getTextFromValueFunc;
 }
 
-String AndesSlider::getTextFromValue (double value)
+String AndesSlider::getTextFromValue(double value)
 {
     if (getTextFromValueFunc)
     {
-        return getTextFromValueFunc (value);
+        return getTextFromValueFunc(value);
     }
-    return Slider::getTextFromValue (value);
+    return Slider::getTextFromValue(value);
 }

@@ -19,26 +19,26 @@
 #include "AndesVoice.h"
 #include "AndesSound.h"
 
-AndesVoice::AndesVoice (AndesAudioProcessor& processor)
-    : currentPhase (0), phaseDelta (0), level (0),
+AndesVoice::AndesVoice(AndesAudioProcessor& processor)
+    : currentPhase(0), phaseDelta(0), level(0),
       processor(processor),
       envGen(processor)
 {
 }
 
-bool AndesVoice::canPlaySound (SynthesiserSound* sound)
+bool AndesVoice::canPlaySound(SynthesiserSound* sound)
 {
     return dynamic_cast<AndesSound*> (sound) != nullptr;
 }
 
-void AndesVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitchWheelPosition)
+void AndesVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitchWheelPosition)
 {
     currentPhase = 0.0;
     level = velocity;
 
-    frequency = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    maxFrequency = MidiMessage::getMidiNoteInHertz (midiNoteNumber + 4);
-    minFrequency = MidiMessage::getMidiNoteInHertz (midiNoteNumber - 4);
+    frequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+    maxFrequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber + 4);
+    minFrequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber - 4);
     normalizedFrequency = frequency / getSampleRate();
 
     phaseDelta = normalizedFrequency * 2.0;
@@ -47,7 +47,7 @@ void AndesVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound
     envGen.reset(getSampleRate());
 }
 
-void AndesVoice::stopNote (float velocity, bool allowTailOff)
+void AndesVoice::stopNote(float velocity, bool allowTailOff)
 {
     if (allowTailOff)
     {
@@ -62,7 +62,7 @@ void AndesVoice::stopNote (float velocity, bool allowTailOff)
     }
 }
 
-void AndesVoice::pitchWheelMoved (int newPitchWheelValue)
+void AndesVoice::pitchWheelMoved(int newPitchWheelValue)
 {
     double frequencyOffset = (newPitchWheelValue / 8192.0f) - 1.0f;
     double newFrequency;
@@ -78,26 +78,26 @@ void AndesVoice::pitchWheelMoved (int newPitchWheelValue)
     phaseDelta = newFrequency / getSampleRate() * 2.0;
 }
 
-void AndesVoice::controllerMoved (int controllerNumber, int newControllerValue)
+void AndesVoice::controllerMoved(int controllerNumber, int newControllerValue)
 {
 }
 
-void AndesVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples)
+void AndesVoice::renderNextBlock(AudioSampleBuffer& outputBuffer, int startSample, int numSamples)
 {
     if (phaseDelta != 0.0)
     {
         while (--numSamples >= 0)
         {
-            float phase = fmod (currentPhase, 2);
+            float phase = fmod(currentPhase, 2);
             const float envLevel = envGen.next();
-            const float currentSample = processor.noise.gen (phase,
-                                                             (int) *processor.parameters.getRawParameterValue ("octaves"),
-                                                             *processor.parameters.getRawParameterValue ("persistence"),
-                                                             *processor.parameters.getRawParameterValue ("torsion"),
-                                                             *processor.parameters.getRawParameterValue ("warping")) * level * envLevel;
+            const float currentSample = processor.noise.gen(phase,
+                                                            (int) *processor.parameters.getRawParameterValue("octaves"),
+                                                            *processor.parameters.getRawParameterValue("persistence"),
+                                                            *processor.parameters.getRawParameterValue("offset"),
+                                                            *processor.parameters.getRawParameterValue("warping")) * level * envLevel;
 
             for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-                outputBuffer.addSample (i, startSample, currentSample);
+                outputBuffer.addSample(i, startSample, currentSample);
 
             currentPhase += phaseDelta;
             ++startSample;

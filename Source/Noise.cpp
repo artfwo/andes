@@ -20,7 +20,7 @@
 
 Noise::Noise()
 {
-    setSeed (0x568fd34e);
+    setSeed(0x568fd34e);
 }
 
 Noise::~Noise()
@@ -32,7 +32,7 @@ uint32_t Noise::getSeed()
     return seed_;
 }
 
-void Noise::setSeed (uint32_t seed)
+void Noise::setSeed(uint32_t seed)
 {
     seed_ = seed;
     random.seed(seed);
@@ -44,12 +44,12 @@ void Noise::setSeed (uint32_t seed)
     }
 }
 
-static inline float lerp (float a0, float a1, float w)
+static inline float lerp(float a0, float a1, float w)
 {
     return (1.0f - w) * a0 + w * a1;
 }
 
-float Noise::gen1 (float z, float torsion)
+float Noise::gen1(float z, float offset)
 {
     float g1, g2, d2;
     float result = 0;
@@ -57,17 +57,17 @@ float Noise::gen1 (float z, float torsion)
     int z1 = (int) z;
     int z2 = (z1 + 1);
 
-    float dz1 = z - z1; 
+    float dz1 = z - z1;
     float dz2 = dz1 - 1.0f;
 
     g1 = gradients[z1];
     g2 = gradients[z2];
 
-    g1 = g1 + torsion;
+    g1 = g1 + offset;
     if (g1 > 1.0f) { g1 = 2.0f - g1; }
     if (g1 < -1.0f) { g1 = -2.0f - g1; }
 
-    g2 = g2 + torsion;
+    g2 = g2 + offset;
     if (g2 > 1.0f) { g2 = 2.0f - g2; }
     if (g2 < -1.0f) { g2 = -2.0f - g2; }
 
@@ -82,17 +82,17 @@ float Noise::gen1 (float z, float torsion)
     return result * 3.33; // temp normalization value
 }
 
-float Noise::gen (float z, int octaves, float persistence, float torsion, float warping)
+float Noise::gen(float z, int octaves, float persistence, float offset, float warping)
 {
     float result = 0;
     float multiplier = 1.0f;
-    float offset = gen1 (z, torsion) * warping;
+    float warpOffset = gen1(z, offset) * warping;
 
     for (int octave = 0; octave < octaves; ++octave)
     {
-        float t = fmod(torsion, 4);
-        float value = gen1 (z * (1 << octave) + offset, t) * multiplier;
-        offset = value * warping;
+        float t = fmod(offset, 4);
+        float value = gen1(z * (1 << octave) + warpOffset, t) * multiplier;
+        warpOffset = value * warping;
         result += value;
         multiplier *= persistence;
     }

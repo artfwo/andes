@@ -26,11 +26,11 @@ public:
     AndesSlider();
     ~AndesSlider();
 
-    void setGetTextFromValueFunc (std::function<String(double)> getTextFromValueFunc);
-    String getTextFromValue (double value) override;
+    void setGetTextFromValueFunc(std::function<String(double)> getTextFromValueFunc);
+    String getTextFromValue(double value) override;
 
 private:
     std::function<String(double)> getTextFromValueFunc;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AndesSlider)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AndesSlider)
 };
