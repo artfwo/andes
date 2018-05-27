@@ -55,7 +55,7 @@ void WaveformVisualiser::paint(Graphics& g)
     {
         float z = ((float) i) / ((float) w) * 2.0f;
 
-        p.lineTo(i, h / 2 - (processor.noise.gen(
+        p.lineTo(i, h / 2 - (processor.noise.fbm(
             z,
             (int) *processor.parameters.getRawParameterValue("octaves"),
             *processor.parameters.getRawParameterValue("persistence"),

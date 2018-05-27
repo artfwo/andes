@@ -44,12 +44,7 @@ void Noise::setSeed(uint32_t seed)
     }
 }
 
-static inline float lerp(float a0, float a1, float w)
-{
-    return (1.0f - w) * a0 + w * a1;
-}
-
-float Noise::gen1(float z, float offset)
+float Noise::noise(float z, float offset)
 {
     float g1, g2, d2;
     float result = 0;
@@ -82,16 +77,16 @@ float Noise::gen1(float z, float offset)
     return result * 3.33; // temp normalization value
 }
 
-float Noise::gen(float z, int octaves, float persistence, float offset, float warping)
+float Noise::fbm(float z, int octaves, float persistence, float offset, float warping)
 {
     float result = 0;
     float multiplier = 1.0f;
-    float warpOffset = gen1(z, offset) * warping;
+    float warpOffset = noise(z, offset) * warping;
 
     for (int octave = 0; octave < octaves; ++octave)
     {
         float t = fmod(offset, 4);
-        float value = gen1(z * (1 << octave) + warpOffset, t) * multiplier;
+        float value = noise(z * (1 << octave) + warpOffset, t) * multiplier;
         warpOffset = value * warping;
         result += value;
         multiplier *= persistence;

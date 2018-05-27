@@ -90,7 +90,7 @@ void AndesVoice::renderNextBlock(AudioSampleBuffer& outputBuffer, int startSampl
         {
             float phase = fmod(currentPhase, 2);
             const float envLevel = envGen.next();
-            const float currentSample = processor.noise.gen(phase,
+            const float currentSample = processor.noise.fbm(phase,
                                                             (int) *processor.parameters.getRawParameterValue("octaves"),
                                                             *processor.parameters.getRawParameterValue("persistence"),
                                                             *processor.parameters.getRawParameterValue("offset"),
