@@ -49,8 +49,8 @@ float Noise::noise(float z, float offset)
     float g1, g2, d2;
     float result = 0;
 
-    int z1 = (int) z;
-    int z2 = (z1 + 1);
+    int z1 = (int) z % 65536U;
+    int z2 = (z1 + 1) % 65536U;
 
     float dz1 = z - z1;
     float dz2 = dz1 - 1.0f;
