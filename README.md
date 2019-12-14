@@ -3,7 +3,7 @@
 
 # andes
 
-Andes is a digital software synthesiser based on Perlin noise. It is still
+Andes is a digital software synthesizer based on Perlin noise. It is still
 in early stages of development and doesn't have a lot of features yet.
 
 The core of Andes is an original oscillator which uses a 1-dimensional version of
